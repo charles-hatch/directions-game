@@ -1,0 +1,10 @@
+/* styles.css */
+body {
+  background-color: rebeccapurple;
+}
+
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(5, 100px);
+}
