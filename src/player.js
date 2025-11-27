@@ -12,17 +12,13 @@ export function currentPosition(board) {
     }
 }
 
-export function playerOrientation() {
-    let orientation = north;
-
-}
 
 //player factory function
 
 const directions = ["north", "east", "south", "west"];
 
 
-export function createPlayer(startX, startY, orientation) {
+export function createPlayer(startX, startY) {
     return {
         x: startX,
         y: startY,
@@ -43,8 +39,9 @@ export function createPlayer(startX, startY, orientation) {
         moveRight() { this.x += 1; },
 
         turnLeft() {
-     let idx = directions.indexOf(this.orientation);
-            this.orientation = directions[(idx - 1) % directions.length];
+            let idx = directions.indexOf(this.orientation);
+            this.orientation = directions[(idx - 1 + directions.length) % directions.length];
+
 
         },
 

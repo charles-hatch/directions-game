@@ -1,44 +1,26 @@
 // index.js
 import "./styles.css";
-import { currentPosition } from "./player.js";
-
 import { makeBoard, setBoard } from "./board.js";
 import { updateDisplay } from "./renderer.js";
-
 import { createPlayer } from './player.js';
 
-
-
-
 const board = makeBoard();
-console.log(board[2][3]);
 setBoard(board);
-updateDisplay(board);
 console.log(board);
-
-
-const pos = currentPosition(board);
-console.log(pos.x, pos.y);
 
 
 const player = createPlayer(2, 4);
 console.log(player.getPosition());
 console.log(player.getOrientation());
 console.log(player.turnRight());
-console.log(player.getOrientation());
-console.log(player.turnLeft());
-console.log(player.getOrientation());
 
 updateDisplay(board, player);
 
+const turnRightButton = document.querySelector('turn-right-btn');
 
 
 
 //GAME LOOP, display everything, wait for input, when input, update display everything
-
-
-
-
 
 
 // console.log(player.x, player.y);  // reads from the board
@@ -53,7 +35,7 @@ updateDisplay(board, player);
 
 // document.body.appendChild(image);
 //importing an image
-
+// board[player.y][player.x].player = player;
 
 // index.js → bootstrapping only
 
