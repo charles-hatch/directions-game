@@ -3,10 +3,10 @@
 
 
 export function currentPosition(board) {
-    for (let x = 0; x < board.length; x++) {
-        for (let y = 0; y < board[y].length; y++) {
-            if (board[x][y].player === "player") {
-                return { x, y };
+    for (let y = 0; y < board.length; y++) {
+        for (let x = 0; x < board[x].length; x++) {
+            if (board[y][x].player === "player") {
+                return { y, x };
             }
         }
     }
@@ -16,15 +16,16 @@ export function currentPosition(board) {
 const directions = ["north", "east", "south", "west"];
 
 
-export function createPlayer(startX, startY) {
+export function createPlayer(startY, startX) {
     return {
-        x: startX,
         y: startY,
+        x: startX,
+
 
         orientation: "north",
 
         getPosition() {
-            return { x: this.x, y: this.y };
+            return { y: this.y, x: this.x };
         },
 
         getOrientation() {
@@ -34,23 +35,10 @@ export function createPlayer(startX, startY) {
         move() {
             console.log("EXECUTE MOVE")
             switch (this.orientation) {
-                case "north": this.y -= 1;
-                    // Code to execute if expression === value1
-                    break;
-                case "south": this.y += 1;
-                    // Code to execute if expression === value2
-                    break;
-
-                case "west": this.x -= 1;
-                    // Code to execute if expression === value2
-                    break;
-                case "east": this.x += 1;
-                    // Code to execute if expression === value1
-                    break;
-
-
-                default: return;
-                // Code to execute if no case matches
+                case "north": this.y -= 1; break;
+                case "south": this.y += 1; break;
+                case "west": this.x -= 1; break;
+                case "east": this.x += 1; break;
             }
         },
 

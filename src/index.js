@@ -7,11 +7,11 @@ import { createPlayer } from './player.js';
 const board = makeBoard();
 setBoard(board);
 console.log(board);
-const player = createPlayer(2, 4);
+const player = createPlayer(4, 2);
 updateDisplay(board, player);
 //game setup
 
-console.log(player.x, player.y);
+console.log(player.y, player.x);
 console.log(player.getPosition())
 
 
@@ -21,23 +21,26 @@ turnRightBtn.addEventListener("click", () => {
     console.log("Turn Right Button clicked");
     player.turnRight();
     updateDisplay(board, player);
+    console.log(player.getOrientation())
 });
 
 const turnLeftBtn = document.querySelector('#turn-left-btn');
 turnLeftBtn.addEventListener("click", () => {
     console.log("Turn Left Button clicked");
+
     player.turnLeft();
     updateDisplay(board, player);
+        console.log(player.getOrientation())
 });
 
 
 const goStraightBtn = document.querySelector('#go-straight-btn');
 goStraightBtn.addEventListener("click", () => {
     console.log("Go Straight Button clicked");
-    board[player.x][player.y].player = null;
+    board[player.y][player.x].player = null;
     //clears the current pos
 
-    if (isWalkable(board, player.x, player.y, player.orientation)) {
+    if (isWalkable(board, player.y, player.x, player.orientation)) {
         console.log("It is walkable, proceed!")
         player.move();
     } else {
@@ -45,11 +48,13 @@ goStraightBtn.addEventListener("click", () => {
         return;
     };
 
-    board[player.x][player.y].player = player;
+    board[player.y][player.x].player = player;
     updateDisplay(board, player);
-    console.log(player.x, player.y);
+    console.log("Checking player stats")
+    console.log(player.y, player.x);
     console.log(player.getPosition());
     console.log(board)
+        console.log("Checking player stats end")
 });
 
 

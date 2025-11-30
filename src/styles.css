@@ -15,3 +15,8 @@ button {
   width:200px;
   height:100px;
 }
+
+#helper{
+  font-size: 32px;
+  color: white;
+}
