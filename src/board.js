@@ -58,7 +58,7 @@ export function setBoard(board) {
     });
 
     // Player
-    const [playerX, playerY] = [4, 2];
+    const [playerX, playerY] = [2, 4];
     board[playerX][playerY].player = "player";
 }
 
@@ -66,31 +66,26 @@ export function setBoard(board) {
 export function isWalkable(board, x, y, orientation) {
     //we have... x y, and the orientation
     //first, depending the orien, adjusts our x, y
+    console.log("CHECKING IF WALKABLE")
 
+    console.log("O = " + orientation + " , Position X: " + x + " Position Y: " + y)
 
-    if (orientation == "north") {
-        y = y - 1;
-    }
     switch (orientation) {
-        case "north": y -= 1;
-            // Code to execute if expression === value1
-            break;
-        case "south": y + - 1;
-            // Code to execute if expression === value2
-            break;
-        case "west": x -= 1;
-            // Code to execute if expression === value1
-            break;
-        case "east": x + - 1;
-            // Code to execute if expression === value2
-            break;
-        // ... more cases
+        case "north": y--; break;
+        case "south": y++; break;
+        case "west": x--; break;
+        case "east": x++; break;
     }
+    if (x < 0 || x >= board.length) return false;
+    if (y < 0 || y >= board[0].length) return false;
+
+    console.log("Checking Position at " + x + " ," + y)
+
     if (board[x][y].map === "path") {
-        console.log("loction at " + x + " and " + y + " " + " is true")
+        console.log("loction at " + x + " and " + y + " " + " is a path")
         return true;
     } else {
-        console.log("loction at " + x + " and " + y + " " + " is false")
+        console.log("loction at " + x + " and " + y + " " + " is not a path")
         return false;
     }
 

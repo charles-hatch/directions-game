@@ -32,6 +32,7 @@ export function createPlayer(startX, startY) {
         },
 
         move() {
+            console.log("EXECUTE MOVE")
             switch (this.orientation) {
                 case "north": this.y -= 1;
                     // Code to execute if expression === value1

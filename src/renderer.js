@@ -1,5 +1,8 @@
 import playerIcon from "./icons/player.png";
-
+import tileGrass from "./tiles/tileGrass.png";
+import tilePath from "./tiles/tilePath.jpg";
+import tileCenter from "./tiles/tileCenter.png";
+import tileBuilding4 from "./tiles/tileBuilding4.png";
 
 export function updateDisplay(board, player) {
     for (let x = 0; x < board.length; x++) {
@@ -13,19 +16,19 @@ export function updateDisplay(board, player) {
             // Draw terrain
             switch (cell.map) {
                 case "building":
-                    cell.el.style.backgroundColor = "grey";
+                        cell.el.style.backgroundImage = `url(${tileBuilding4})`;
                     break;
                 case "path":
-                    cell.el.style.backgroundColor = "blue";
+                    cell.el.style.backgroundImage = `url(${tilePath})`;
                     break;
                 default:
-                    cell.el.style.backgroundColor = "green";
+                    cell.el.style.backgroundImage = `url(${tileGrass})`;
             }
         }
     }
 
     // Draw player at its current position
-    const playerCell = board[player.y][player.x];
+    const playerCell = board[player.x][player.y];
     playerCell.el.style.backgroundImage = `url(${playerIcon})`;
     playerCell.el.style.backgroundSize = "cover";
     playerCell.el.style.backgroundRepeat = "no-repeat";
