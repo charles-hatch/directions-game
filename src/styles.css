@@ -20,3 +20,7 @@ button {
   font-size: 32px;
   color: white;
 }
+
+#player{
+  position: absolute; pointer-events: none;
+}

@@ -1,4 +1,4 @@
-
+//board.js
 export const greet = "Hello, Odinite!";
 
 const gameBoard = document.querySelector("#game-board");
@@ -50,12 +50,27 @@ export function setBoard(board) {
     // Walkable paths
     const paths = [
         [4, 2], [3, 2], [2, 2], [1, 2], [0, 2],
-        [1, 3], [1, 4], [1, 0], [1, 1],
-        [3, 0], [3, 1], [3, 3], [3, 4]
+
     ];
     paths.forEach(([y, x]) => {
         board[y][x].map = "path";
     });
+
+    const pathCenter = [
+        [3, 2], [1, 2]
+    ];
+    pathCenter.forEach(([y, x]) => {
+        board[y][x].map = "path2";
+    });
+
+    const pathHorizontal = [
+        [1, 0], [1, 1], [1, 3], [1, 4],
+        [3, 0], [3, 1], [3, 3], [3, 4]
+    ];
+    pathHorizontal.forEach(([y, x]) => {
+        board[y][x].map = "path3";
+    });
+
 
     // Player
     const [playerY, playerX] = [4, 2];  // first = row, second = column
@@ -65,10 +80,7 @@ export function setBoard(board) {
 
 
 export function isWalkable(board, y, x, orientation) {
-    //we have... x y, and the orientation
-    //first, depending the orien, adjusts our x, y
     console.log("CHECKING IF WALKABLE")
-
     console.log("O = " + orientation + " , Position Y: " + y + " Position X: " + x)
 
     switch (orientation) {
@@ -77,12 +89,12 @@ export function isWalkable(board, y, x, orientation) {
         case "west": x--; break;
         case "east": x++; break;
     }
-    // if (x < 0 || x >= board.length) return false;
-    // if (y < 0 || y >= board[0].length) return false;
+    if (x < 0 || x >= board.length) return false;
+    if (y < 0 || y >= board[0].length) return false;
 
     console.log("Checking Position at " + y + " ," + x)
 
-    if (board[y][x].map === "path") {
+    if (board[y][x].map === "path" || "path2" || "path3") {
         console.log("loction at " + y + " and " + x + " " + " is a path")
         return true;
     } else {

@@ -1,7 +1,4 @@
-
-
-
-
+//player.js
 export function currentPosition(board) {
     for (let y = 0; y < board.length; y++) {
         for (let x = 0; x < board[x].length; x++) {
@@ -41,11 +38,6 @@ export function createPlayer(startY, startX) {
                 case "east": this.x += 1; break;
             }
         },
-
-        // moveUp() { this.y -= 1; },
-        // moveDown() { this.y += 1; },
-        // moveLeft() { this.x -= 1; },
-        // moveRight() { this.x += 1; },
 
         turnLeft() {
             let idx = directions.indexOf(this.orientation);

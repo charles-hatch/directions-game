@@ -1,4 +1,5 @@
-import playerIcon from "./icons/player.png";
+//renderer.js
+import playerIcon from "./icons/guy.png";
 import tileGrass from "./tiles/tileGrass.png";
 import tilePath from "./tiles/tilePath.jpg";
 import tileCenter from "./tiles/tileCenter.png";
@@ -20,6 +21,13 @@ export function updateDisplay(board, player) {
                     break;
                 case "path":
                     cell.el.style.backgroundImage = `url(${tilePath})`;
+                    break
+                case "path2":
+                    cell.el.style.backgroundImage = `url(${tileCenter})`;
+                    break;
+                case "path3":
+                    cell.el.style.backgroundImage = `url(${tilePath})`;
+                    cell.el.style.transform = "rotate(90deg)";
                     break;
                 default:
                     cell.el.style.backgroundImage = `url(${tileGrass})`;
@@ -28,24 +36,35 @@ export function updateDisplay(board, player) {
     }
 
     // Draw player at its current position
-    const playerCell = board[player.y][player.x];
+    const playerCell = document.getElementById("player");
+    const TILE_SIZE = 100;
+    const PLAYER_SIZE = 50;
 
-    playerCell.el.style.backgroundImage = `url(${playerIcon})`;
-    playerCell.el.style.backgroundSize = "cover";
-    playerCell.el.style.backgroundRepeat = "no-repeat";
+    playerCell.style.width = PLAYER_SIZE + "px";
+    playerCell.style.height = PLAYER_SIZE + "px";
+
+    playerCell.style.left = `${player.x * TILE_SIZE + 35}px`;
+    playerCell.style.top = `${player.y * TILE_SIZE + 35}px`;
+    // playerCell.style.backgroundSize = "cover";
+    // playerCell.style.backgroundRepeat = "no-repeat";
+
+
+    // const playerCell = board[player.y][player.x];
+    // playerCell.el.style.backgroundImage = `url(${playerIcon})`;
+
 
     switch (player.orientation) {
         case "east":
-            playerCell.el.style.transform = "rotate(90deg)";
+            playerCell.style.transform = "rotate(90deg)";
             break;
         case "south":
-            playerCell.el.style.transform = "rotate(180deg)";
+            playerCell.style.transform = "rotate(180deg)";
             break;
         case "west":
-            playerCell.el.style.transform = "rotate(270deg)";
+            playerCell.style.transform = "rotate(270deg)";
             break;
         case "north":
-            playerCell.el.style.transform = "rotate(0deg)";
+            playerCell.style.transform = "rotate(0deg)";
             break;
     }
 }
