@@ -21,7 +21,7 @@ export function makeBoard() {
             gameBoard.appendChild(box);
             row.push({
                 map: null,
-                player: null,
+                buildingIndex:null,
                 el: box
             });
         }
@@ -31,14 +31,18 @@ export function makeBoard() {
 }
 
 
-export function setBoard(board) {
+export function setBoard(board, buildingImgs) {
+    let i = 0;
     // Buildings
     const buildings = [
         [0, 0], [0, 1], [0, 4],
         [2, 1], [2, 3], [2, 4], [4, 4] 
     ];
+
     buildings.forEach(([y, x]) => {
         board[y][x].map = "building";
+        board[y][x].buildingIndex = i % buildingImgs.length;
+        i++;
     });
 
     // Walkable paths
@@ -64,11 +68,6 @@ export function setBoard(board) {
     pathHorizontal.forEach(([y, x]) => {
         board[y][x].map = "path3";
     });
-
-    // Player
-    const [playerY, playerX] = [4, 2]; 
-    board[playerY][playerX].player = "player";
-
 }
 
 export function isWalkable(board, y, x, orientation) {
@@ -88,5 +87,3 @@ export function isWalkable(board, y, x, orientation) {
     }
 
 }
-
-

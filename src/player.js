@@ -22,12 +22,10 @@ export function createPlayer(startY, startX) {
                 case "east": this.x += 1; break;
             }
         },
-
         turnLeft() {
             let idx = directions.indexOf(this.orientation);
             this.orientation = directions[(idx - 1 + directions.length) % directions.length];
         },
-
         turnRight() {
             let idx = directions.indexOf(this.orientation);
             this.orientation = directions[(idx + 1) % directions.length];

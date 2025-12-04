@@ -16,20 +16,16 @@ const buildingImgs = [tileBuilding1, tileBuilding2,
 let buildingCounter = 0;
 
 export function setDisplay(board) {
-    buildingCounter = 0;
+    // buildingCounter = 0;
     for (let y = 0; y < board.length; y++) {
         for (let x = 0; x < board[y].length; x++) {
             const cell = board[y][x];
 
-            // Clear everything first
-            cell.el.style.backgroundImage = "";
-            cell.el.style.transform = "rotate(0deg)";
-
             // Draw terrain
             switch (cell.map) {
                 case "building":
-                    cell.el.style.backgroundImage = `url(${buildingImgs[buildingCounter]})`;
-                    buildingCounter++;
+                    const img = buildingImgs[cell.buildingIndex];
+                    cell.el.style.backgroundImage = `url(${img})`;
                     break;
                 case "path":
                     cell.el.style.backgroundImage = `url(${tilePath})`;
