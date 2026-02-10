@@ -5,13 +5,13 @@ import { setDisplay, updatePlayer } from "./renderer.js";
 import { createPlayer } from "./player.js";
 import { GameState } from "./gameState.js";
 
-import tileBuilding1 from "./tiles/tileBuilding1.png";
-import tileBuilding2 from "./tiles/tileBuilding2.png";
-import tileBuilding3 from "./tiles/tileBuilding3.png";
-import tileBuilding4 from "./tiles/tileBuilding4.png";
-import tileBuilding5 from "./tiles/tileBuilding5.png";
-import tileBuilding6 from "./tiles/tileBuilding6.png";
-import tileBuilding7 from "./tiles/tileBuilding7.png";
+// import tileBuilding1 from "./tiles/tileBuilding1.png";
+// import tileBuilding2 from "./tiles/tileBuilding2.png";
+// import tileBuilding3 from "./tiles/tileBuilding3.png";
+// import tileBuilding4 from "./tiles/tileBuilding4.png";
+// import tileBuilding5 from "./tiles/tileBuilding5.png";
+// import tileBuilding6 from "./tiles/tileBuilding6.png";
+// import tileBuilding7 from "./tiles/tileBuilding7.png";
 
 /* =====================
    Screen Management
@@ -27,15 +27,15 @@ function showGameScreen() {
 /* =====================
    Assets
 ===================== */
-const buildingImgs = [
-  tileBuilding1,
-  tileBuilding2,
-  tileBuilding3,
-  tileBuilding4,
-  tileBuilding5,
-  tileBuilding6,
-  tileBuilding7,
-];
+// const buildingImgs = [
+//   tileBuilding1,
+//   tileBuilding2,
+//   tileBuilding3,
+//   tileBuilding4,
+//   tileBuilding5,
+//   tileBuilding6,
+//   tileBuilding7,
+// ];
 
 /* =====================
    Game State
@@ -47,14 +47,17 @@ let player = null;
    Game Setup
 ===================== */
 function startGame() {
-  // Clear old board if restarting
   document.getElementById("game-board").innerHTML = "";
 
   board = makeBoard();
   player = createPlayer(4, 2);
-  setBoard(board, buildingImgs);
+  setBoard(board);
   setDisplay(board);
   updatePlayer(player);
+
+  if (GameState.mode === "level") {
+    // set goal later
+  }
 }
 
 /* =====================
@@ -63,6 +66,7 @@ function startGame() {
 const turnRightBtn = document.querySelector("#turn-right-btn");
 const turnLeftBtn = document.querySelector("#turn-left-btn");
 const goStraightBtn = document.querySelector("#go-straight-btn");
+const menuBtn = document.getElementById("menu-btn");
 
 turnRightBtn.addEventListener("click", () => {
   if (!player) return;
@@ -85,14 +89,30 @@ goStraightBtn.addEventListener("click", () => {
   }
 });
 
+menuBtn.addEventListener("click", () => {
+  showMenuScreen();
+});
+
 /* =====================
    Menu
 ===================== */
 document.querySelectorAll("#menu-screen button").forEach((button) => {
   button.addEventListener("click", () => {
-    GameState.mode = button.dataset.mode; // "free" | "teacher"
+    GameState.mode = button.dataset.mode; // "free" | "level"
     GameState.screen = "game";
     showGameScreen();
     startGame();
   });
 });
+
+function showMenuScreen() {
+  gameScreen.hidden = true;
+  menuScreen.hidden = false;
+
+  GameState.screen = "menu";
+  GameState.goal = null;
+  board = null;
+  player = null;
+
+  document.getElementById("game-board").innerHTML = "";
+}

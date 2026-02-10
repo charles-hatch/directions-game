@@ -6,3 +6,7 @@ This project is intended to help teach Japanese Elementary students learn Englis
 - avatar selection
 - a single player mode (where the program tells the student which location to go to)
 - a legend to explain buttons and methods of play
+
+- “Free Mode supports teacher-led and pair-based classroom interaction, while Level Mode provides goal-driven, repeatable challenges for individual practice.”
+
+Board logic assigns abstract tile IDs; renderer maps IDs to visual assets.
