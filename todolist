@@ -1,0 +1,287 @@
+Below is a **practical, fastest-path plan** to get this portfolio-ready. It’s ordered by **impact → effort**, and each step includes **what to build**, **where it lives**, and **how to implement it without refactors exploding**.
+
+---
+
+## 0. High-level decision (do this first)
+
+**Do NOT over-engineer.**
+You want:
+
+* One core game loop
+* Thin “modes” that toggle behavior
+* Hardcoded data first, randomized later
+
+Everything below assumes **minimal refactor**, not perfection.
+
+---
+
+## 1. Introduce a Game State Controller (critical)
+
+Right now everything runs immediately. You need a single source of truth.
+
+### Add `gameState.js`
+
+```js
+export const GameState = {
+  screen: "menu", // menu | game | goalComplete
+  mode: "free",   // free | teacher
+  level: 1,
+  goal: null
+};
+```
+
+Why:
+
+* Menu screen
+* Mode selection
+* Goal logic
+* Portfolio-readable structure
+
+This lets you **gate behavior** without rewriting logic.
+
+---
+
+## 2. Menu Screen (fast win, low effort)
+
+### What
+
+* Start screen
+* Mode select
+* Level select (optional)
+
+### How (simple)
+
+* Hide/show DOM sections
+* No routing, no frameworks
+
+### HTML
+
+```html
+<div id="menu-screen">
+  <button data-mode="free">Free Mode</button>
+  <button data-mode="teacher">Teacher Mode</button>
+</div>
+
+<div id="game-screen" hidden>
+  <!-- existing game -->
+</div>
+```
+
+### JS
+
+```js
+import { GameState } from "./gameState";
+
+document.querySelectorAll("#menu-screen button").forEach(btn => {
+  btn.onclick = () => {
+    GameState.mode = btn.dataset.mode;
+    GameState.screen = "game";
+    startGame();
+  };
+});
+```
+
+This instantly makes it classroom-usable.
+
+---
+
+## 3. Goal System (core ESL mechanic)
+
+This is the **heart of the project**. Do this early.
+
+### Define goals as data
+
+```js
+const GOALS = [
+  { buildingIndex: 0, name: "Bank" },
+  { buildingIndex: 1, name: "Post Office" },
+];
+```
+
+### Set goal
+
+```js
+export function setRandomGoal(board) {
+  const buildings = board.flat().filter(c => c.map === "building");
+  const target = buildings[Math.floor(Math.random() * buildings.length)];
+  return target;
+}
+```
+
+Store it:
+
+```js
+GameState.goal = setRandomGoal(board);
+```
+
+---
+
+## 4. “You can see it on your left/right” logic
+
+This is clean and impressive pedagogically.
+
+### How to detect arrival
+
+When player moves:
+
+```js
+function checkGoal(player, goal) {
+  const dx = goal.x - player.x;
+  const dy = goal.y - player.y;
+
+  if (Math.abs(dx) + Math.abs(dy) === 1) {
+    return getRelativeDirection(player.orientation, dx, dy);
+  }
+}
+```
+
+### Relative direction helper
+
+```js
+function getRelativeDirection(orientation, dx, dy) {
+  if (orientation === "north") return dx === -1 ? "left" : "right";
+  if (orientation === "south") return dx === 1 ? "left" : "right";
+  if (orientation === "east")  return dy === -1 ? "left" : "right";
+  if (orientation === "west")  return dy === 1 ? "left" : "right";
+}
+```
+
+### Display
+
+```js
+helper.textContent = `You can see it on your ${direction}`;
+```
+
+This directly maps to Japanese textbooks. Huge value.
+
+---
+
+## 5. Teacher Mode vs Free Mode (toggle behavior)
+
+No new systems. Just **conditional rules**.
+
+### Free Mode
+
+* Player walks freely
+* No goal enforcement
+
+### Teacher Mode
+
+* Buttons disabled unless correct
+* OR teacher announces goal verbally
+
+Example:
+
+```js
+if (GameState.mode === "teacher" && !isCorrectMove) return;
+```
+
+That’s it. No extra UI needed yet.
+
+---
+
+## 6. Levels (fake complexity, real payoff)
+
+Do NOT build procedural maps yet.
+
+### Level = map config
+
+```js
+const LEVELS = {
+  1: { size: 5, boardFn: setBoard },
+  2: { size: 7, boardFn: setBoardLarge },
+};
+```
+
+Switch by:
+
+```js
+GameState.level = 2;
+loadLevel(GameState.level);
+```
+
+Even if only Level 1 exists now, this looks intentional.
+
+---
+
+## 7. Responsive + Cute Layout (minimal CSS changes)
+
+You don’t need “game art polish”, just **intentional layout**.
+
+### Key changes
+
+* Center the board
+* Scale tiles with `vw`
+* Wrap buttons in a control panel
+
+```css
+#game-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#btns {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+```
+
+Optional:
+
+* Round buttons
+* Pastel background
+* Larger helper text
+
+That’s enough for a portfolio reviewer.
+
+---
+
+## 8. Character Select (stub only)
+
+Do NOT implement fully yet.
+
+Menu:
+
+```html
+<button disabled>Character Select (Coming Soon)</button>
+```
+
+Or:
+
+```js
+GameState.character = "boy";
+```
+
+Future-proof, zero effort.
+
+---
+
+## 9. Final polish checklist (portfolio-ready)
+
+* Rename files clearly (`gameState.js`, `goalSystem.js`)
+* Remove commented TODOs
+* Add a short README:
+
+  * Target audience
+  * Classroom usage
+  * ESL objective
+
+---
+
+## Where to start (order)
+
+1. GameState + menu screen
+2. Goal system + left/right logic
+3. Teacher vs Free mode toggle
+4. CSS cleanup
+5. Levels (even fake ones)
+
+If you want, next step we can:
+
+* Implement **goal detection step-by-step**
+* Or refactor **board + renderer** cleanly using Odin principles
+* Or design **teacher classroom flow** (pair work, call-and-response)
+
+Say which one.

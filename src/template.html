@@ -1,23 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
-    <div id="game-container">
-        <div id="game-board"></div>
-           <img id="player" src="./icons/guy.png">
+  <body>
+    <div id="menu-screen">
+      <button data-mode="free">Free Mode</button>
+      <button data-mode="teacher">Teacher Mode</button>
     </div>
-    <div id="btns">
+
+    <div id="game-screen" hidden>
+      <div id="game-container">
+        <div id="game-board"></div>
+        <img id="player" src="./icons/guy.png" />
+      </div>
+      <div id="btns">
         <button id="turn-left-btn">Turn left.</button>
         <button id="go-straight-btn">Go Straight.</button>
         <button id="turn-right-btn">Turn right.</button>
+      </div>
     </div>
-
-</body>
-
+  </body>
 </html>

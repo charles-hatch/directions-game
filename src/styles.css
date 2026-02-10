@@ -3,24 +3,23 @@ body {
   background-color: rebeccapurple;
 }
 
-
 #game-board {
-    display: grid;
-    grid-template-columns: repeat(5, 100px);
+  display: grid;
+  grid-template-columns: repeat(5, 100px);
 }
-
 
 button {
-  margin-top:30px;
-  width:200px;
-  height:100px;
+  margin-top: 30px;
+  width: 200px;
+  height: 100px;
 }
 
-#helper{
+#helper {
   font-size: 32px;
   color: white;
 }
 
-#player{
-  position: absolute; pointer-events: none;
+#player {
+  position: absolute;
+  pointer-events: none;
 }
