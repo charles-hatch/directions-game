@@ -4,14 +4,7 @@ import { makeBoard, setBoard, isWalkable } from "./board.js";
 import { setDisplay, updatePlayer } from "./renderer.js";
 import { createPlayer } from "./player.js";
 import { GameState } from "./gameState.js";
-
-// import tileBuilding1 from "./tiles/tileBuilding1.png";
-// import tileBuilding2 from "./tiles/tileBuilding2.png";
-// import tileBuilding3 from "./tiles/tileBuilding3.png";
-// import tileBuilding4 from "./tiles/tileBuilding4.png";
-// import tileBuilding5 from "./tiles/tileBuilding5.png";
-// import tileBuilding6 from "./tiles/tileBuilding6.png";
-// import tileBuilding7 from "./tiles/tileBuilding7.png";
+import { setRandomGoal, checkGoal } from "./goalSystem.js";
 
 /* =====================
    Screen Management
@@ -23,19 +16,6 @@ function showGameScreen() {
   menuScreen.hidden = true;
   gameScreen.hidden = false;
 }
-
-/* =====================
-   Assets
-===================== */
-// const buildingImgs = [
-//   tileBuilding1,
-//   tileBuilding2,
-//   tileBuilding3,
-//   tileBuilding4,
-//   tileBuilding5,
-//   tileBuilding6,
-//   tileBuilding7,
-// ];
 
 /* =====================
    Game State
@@ -56,7 +36,11 @@ function startGame() {
   updatePlayer(player);
 
   if (GameState.mode === "level") {
-    // set goal later
+    if (GameState.mode === "level") {
+      GameState.goal = setRandomGoal(board);
+      console.log("Goal set at:", GameState.goal);
+    }
+    //SETS GOAL FOR PLAYER IF GAMESTATE IS LEVEL
   }
 }
 
@@ -72,12 +56,28 @@ turnRightBtn.addEventListener("click", () => {
   if (!player) return;
   player.turnRight();
   updatePlayer(player);
+
+  if (GameState.mode === "level" && GameState.goal) {
+    const direction = checkGoal(player, GameState.goal);
+
+    if (direction) {
+      console.log(`You can see it on your ${direction}`);
+    }
+  }
 });
 
 turnLeftBtn.addEventListener("click", () => {
   if (!player) return;
   player.turnLeft();
   updatePlayer(player);
+
+  if (GameState.mode === "level" && GameState.goal) {
+    const direction = checkGoal(player, GameState.goal);
+
+    if (direction) {
+      console.log(`You can see it on your ${direction}`);
+    }
+  }
 });
 
 goStraightBtn.addEventListener("click", () => {
@@ -86,6 +86,14 @@ goStraightBtn.addEventListener("click", () => {
   if (isWalkable(board, player.y, player.x, player.orientation)) {
     player.move();
     updatePlayer(player);
+
+    if (GameState.mode === "level" && GameState.goal) {
+      const direction = checkGoal(player, GameState.goal);
+
+      if (direction) {
+        console.log(`You can see it on your ${direction}`);
+      }
+    }
   }
 });
 
@@ -116,3 +124,14 @@ function showMenuScreen() {
 
   document.getElementById("game-board").innerHTML = "";
 }
+
+// note to self, messages and names of buildings need to be assigned
+//to each object
+// so we can announce XYZ, the names of the buildings...
+// the actual "goal" can be shown in the bottom or right or top right
+//of the screen "your goal, find this place"
+//the LEGEND will explain teh names of each of the buildings
+// and japanese translations for direction btns etc.
+//but english wont show on the standard screen
+
+//I AM NOT SURE IF THE LEFT RIGHT LOGIC IS PERFECT BASED ON DIRECTION
