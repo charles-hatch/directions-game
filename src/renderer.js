@@ -26,6 +26,7 @@ export function setDisplay(board) {
   for (let y = 0; y < board.length; y++) {
     for (let x = 0; x < board[y].length; x++) {
       const cell = board[y][x];
+      cell.el.classList.add("tile");
 
       // Draw terrain
       switch (cell.map) {
@@ -52,29 +53,37 @@ export function setDisplay(board) {
 }
 
 export function updatePlayer(player) {
-  // Draw player at its current position
-  const playerCell = document.getElementById("player");
-  const TILE_SIZE = 100;
-  const PLAYER_SIZE = 50;
-  playerCell.style.width = PLAYER_SIZE + "px";
-  playerCell.style.height = PLAYER_SIZE + "px";
-  playerCell.style.left = `${player.x * TILE_SIZE + 35}px`;
-  playerCell.style.top = `${player.y * TILE_SIZE + 35}px`;
+  const playerEl = document.getElementById("player");
+
+  const firstTile = document.querySelector("#game-board .tile");
+  const tileSize = firstTile.offsetWidth;
+
+  const PLAYER_SIZE = tileSize * 0.5; // scale with tile
+  playerEl.style.width = PLAYER_SIZE + "px";
+  playerEl.style.height = PLAYER_SIZE + "px";
+
+  // Center using transform anchor
+  playerEl.style.left = `${player.x * tileSize + tileSize / 2}px`;
+  playerEl.style.top = `${player.y * tileSize + tileSize / 2}px`;
+
+  let rotation = 0;
 
   switch (player.orientation) {
     case "east":
-      playerCell.style.transform = "rotate(90deg)";
+      rotation = 90;
       break;
     case "south":
-      playerCell.style.transform = "rotate(180deg)";
+      rotation = 180;
       break;
     case "west":
-      playerCell.style.transform = "rotate(270deg)";
+      rotation = 270;
       break;
     case "north":
-      playerCell.style.transform = "rotate(0deg)";
+      rotation = 0;
       break;
   }
+
+  playerEl.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
 }
 
 export function highlightGoal(board, goal) {

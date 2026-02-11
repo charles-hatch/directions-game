@@ -14,8 +14,8 @@ const menuScreen = document.getElementById("menu-screen");
 const gameScreen = document.getElementById("game-screen");
 
 function showGameScreen() {
-  menuScreen.hidden = true;
-  gameScreen.hidden = false;
+  menuScreen.style.display = "none";
+  gameScreen.style.display = "flex";
 }
 
 /* =====================
@@ -149,8 +149,8 @@ document.querySelectorAll("#menu-screen button").forEach((button) => {
 });
 
 function showMenuScreen() {
-  gameScreen.hidden = true;
-  menuScreen.hidden = false;
+  gameScreen.style.display = "none";
+  menuScreen.style.display = "block";
 
   GameState.screen = "menu";
   GameState.goal = null;
@@ -167,8 +167,8 @@ function resetLevel() {
   if (!player || !board) return;
 
   // Reset player position
-  player.x = 4;
-  player.y = 2;
+  player.y = 4;
+  player.x = 2;
   player.orientation = "north"; // match your player system
 
   updatePlayer(player);
