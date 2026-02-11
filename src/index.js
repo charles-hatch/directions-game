@@ -5,6 +5,7 @@ import { setDisplay, updatePlayer } from "./renderer.js";
 import { createPlayer } from "./player.js";
 import { GameState } from "./gameState.js";
 import { setRandomGoal, checkGoal } from "./goalSystem.js";
+import { highlightGoal, clearGoalHighlight } from "./renderer.js";
 
 /* =====================
    Screen Management
@@ -23,6 +24,18 @@ function showGameScreen() {
 let board = null;
 let player = null;
 
+function updateGoalVisibility() {
+  if (GameState.mode !== "level" || !GameState.goal) return;
+
+  const direction = checkGoal(player, GameState.goal);
+
+  GameState.currentVisibleDirection = direction; // can be left/right/front/behind/null
+
+  if (direction) {
+    console.log(`Building is ${direction}`);
+  }
+}
+
 /* =====================
    Game Setup
 ===================== */
@@ -34,6 +47,7 @@ function startGame() {
   setBoard(board);
   setDisplay(board);
   updatePlayer(player);
+  updateGoalVisibility();
 
   if (GameState.mode === "level") {
     if (GameState.mode === "level") {
@@ -41,6 +55,10 @@ function startGame() {
       console.log("Goal set at:", GameState.goal);
     }
     //SETS GOAL FOR PLAYER IF GAMESTATE IS LEVEL
+  }
+  if (GameState.mode === "level") {
+    GameState.goal = setRandomGoal(board);
+    highlightGoal(board, GameState.goal);
   }
 }
 
@@ -51,11 +69,15 @@ const turnRightBtn = document.querySelector("#turn-right-btn");
 const turnLeftBtn = document.querySelector("#turn-left-btn");
 const goStraightBtn = document.querySelector("#go-straight-btn");
 const menuBtn = document.getElementById("menu-btn");
+const answerLeftBtn = document.getElementById("answer-left");
+const answerRightBtn = document.getElementById("answer-right");
+const answerFrontBtn = document.getElementById("answer-front");
 
 turnRightBtn.addEventListener("click", () => {
   if (!player) return;
   player.turnRight();
   updatePlayer(player);
+  updateGoalVisibility();
 
   if (GameState.mode === "level" && GameState.goal) {
     const direction = checkGoal(player, GameState.goal);
@@ -70,6 +92,7 @@ turnLeftBtn.addEventListener("click", () => {
   if (!player) return;
   player.turnLeft();
   updatePlayer(player);
+  updateGoalVisibility();
 
   if (GameState.mode === "level" && GameState.goal) {
     const direction = checkGoal(player, GameState.goal);
@@ -86,6 +109,7 @@ goStraightBtn.addEventListener("click", () => {
   if (isWalkable(board, player.y, player.x, player.orientation)) {
     player.move();
     updatePlayer(player);
+    updateGoalVisibility();
 
     if (GameState.mode === "level" && GameState.goal) {
       const direction = checkGoal(player, GameState.goal);
@@ -100,6 +124,27 @@ goStraightBtn.addEventListener("click", () => {
 menuBtn.addEventListener("click", () => {
   showMenuScreen();
 });
+
+function handleAnswer(answer) {
+  if (GameState.mode !== "level" || !GameState.goal) return;
+
+  if (GameState.currentVisibleDirection === answer) {
+    console.log("Correct");
+    GameState.goal = null;
+  } else {
+    console.log("Try again");
+  }
+
+  if (GameState.currentVisibleDirection === answer) {
+    console.log("Correct");
+    clearGoalHighlight(board);
+    GameState.goal = null;
+  }
+}
+
+answerLeftBtn.addEventListener("click", () => handleAnswer("left"));
+answerRightBtn.addEventListener("click", () => handleAnswer("right"));
+answerFrontBtn.addEventListener("click", () => handleAnswer("front"));
 
 /* =====================
    Menu
@@ -121,6 +166,7 @@ function showMenuScreen() {
   GameState.goal = null;
   board = null;
   player = null;
+  if (board) clearGoalHighlight(board);
 
   document.getElementById("game-board").innerHTML = "";
 }

@@ -4,4 +4,5 @@ export const GameState = {
   mode: "free", // free | level
   level: 1,
   goal: null,
+  currentVisibleDirection: null,
 };

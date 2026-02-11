@@ -23,3 +23,8 @@ button {
   position: absolute;
   pointer-events: none;
 }
+
+.goal-highlight {
+  outline: 4px solid gold;
+  outline-offset: -4px;
+}

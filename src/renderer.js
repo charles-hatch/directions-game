@@ -76,3 +76,20 @@ export function updatePlayer(player) {
       break;
   }
 }
+
+export function highlightGoal(board, goal) {
+  clearGoalHighlight(board);
+
+  if (!goal) return;
+
+  const cell = board[goal.y][goal.x];
+  cell.el.classList.add("goal-highlight");
+}
+
+export function clearGoalHighlight(board) {
+  for (let y = 0; y < board.length; y++) {
+    for (let x = 0; x < board[y].length; x++) {
+      board[y][x].el.classList.remove("goal-highlight");
+    }
+  }
+}

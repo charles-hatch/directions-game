@@ -23,8 +23,33 @@ export function checkGoal(player, goal) {
 }
 
 function getRelativeDirection(orientation, dx, dy) {
-  if (orientation === "north") return dx === -1 ? "left" : "right";
-  if (orientation === "south") return dx === 1 ? "left" : "right";
-  if (orientation === "east") return dy === -1 ? "left" : "right";
-  if (orientation === "west") return dy === 1 ? "left" : "right";
+  if (orientation === "north") {
+    if (dy === -1) return "front";
+    if (dy === 1) return "behind";
+    if (dx === -1) return "left";
+    if (dx === 1) return "right";
+  }
+
+  if (orientation === "south") {
+    if (dy === 1) return "front";
+    if (dy === -1) return "behind";
+    if (dx === 1) return "left";
+    if (dx === -1) return "right";
+  }
+
+  if (orientation === "east") {
+    if (dx === 1) return "front";
+    if (dx === -1) return "behind";
+    if (dy === -1) return "left";
+    if (dy === 1) return "right";
+  }
+
+  if (orientation === "west") {
+    if (dx === -1) return "front";
+    if (dx === 1) return "behind";
+    if (dy === 1) return "left";
+    if (dy === -1) return "right";
+  }
+
+  return null;
 }
