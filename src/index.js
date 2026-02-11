@@ -50,13 +50,6 @@ function startGame() {
   updateGoalVisibility();
 
   if (GameState.mode === "level") {
-    if (GameState.mode === "level") {
-      GameState.goal = setRandomGoal(board);
-      console.log("Goal set at:", GameState.goal);
-    }
-    //SETS GOAL FOR PLAYER IF GAMESTATE IS LEVEL
-  }
-  if (GameState.mode === "level") {
     GameState.goal = setRandomGoal(board);
     highlightGoal(board, GameState.goal);
   }
@@ -130,15 +123,12 @@ function handleAnswer(answer) {
 
   if (GameState.currentVisibleDirection === answer) {
     console.log("Correct");
-    GameState.goal = null;
-  } else {
-    console.log("Try again");
-  }
-
-  if (GameState.currentVisibleDirection === answer) {
-    console.log("Correct");
     clearGoalHighlight(board);
     GameState.goal = null;
+    const nextBtn = document.getElementById("next-btn");
+    nextBtn.style.display = "block";
+  } else {
+    console.log("Try again");
   }
 }
 
@@ -169,6 +159,31 @@ function showMenuScreen() {
   if (board) clearGoalHighlight(board);
 
   document.getElementById("game-board").innerHTML = "";
+}
+
+document.getElementById("next-btn").addEventListener("click", resetLevel);
+
+function resetLevel() {
+  if (!player || !board) return;
+
+  // Reset player position
+  player.x = 4;
+  player.y = 2;
+  player.orientation = "north"; // match your player system
+
+  updatePlayer(player);
+
+  // Clear old highlight
+  clearGoalHighlight(board);
+
+  // Create new goal
+  GameState.goal = setRandomGoal(board);
+
+  // Highlight new goal
+  highlightGoal(board, GameState.goal);
+
+  // Hide button
+  document.getElementById("next-btn").style.display = "none";
 }
 
 // note to self, messages and names of buildings need to be assigned
