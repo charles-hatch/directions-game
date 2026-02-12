@@ -88,3 +88,8 @@ button {
 #menu-subtitle-text {
   color: #ccc;
 }
+
+.char-select {
+  width: 52px;
+  height: 100%;
+}

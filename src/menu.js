@@ -65,10 +65,10 @@ export function initMenu({ onStartGame }) {
 
   document
     .querySelectorAll("#menu-character [data-character]")
-    .forEach((btn) => {
-      btn.onclick = () => {
-        const src = btn.dataset.character;
-        document.getElementById("player").src = `./icons/${src}`;
+    .forEach((el) => {
+      el.onclick = () => {
+        const src = el.dataset.character;
+        document.getElementById("player").src = `icons/${src}`; // relative to HTML
         GameState.menuView = "main";
         renderMenu();
       };
