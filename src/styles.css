@@ -6,12 +6,19 @@
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
-  background: #f5f5f5;
-
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.background-img {
+  position: fixed;
+  inset: 0;
+  background: url("tiles/tileset.png") repeat;
+  background-size: 512px 512px;
+  filter: blur(6px) brightness(0.4) grayscale(40%);
+  z-index: -1;
 }
 
 #game-screen {
@@ -75,4 +82,8 @@ button {
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+
+#menu-title-text {
+  color: #ccc;
 }
