@@ -1,4 +1,5 @@
 export function setRandomGoal(board) {
+  //goalSystem.js
   const buildings = [];
 
   for (let y = 0; y < board.length; y++) {

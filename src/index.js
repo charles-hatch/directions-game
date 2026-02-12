@@ -6,17 +6,13 @@ import { createPlayer } from "./player.js";
 import { GameState } from "./gameState.js";
 import { setRandomGoal, checkGoal } from "./goalSystem.js";
 import { highlightGoal, clearGoalHighlight } from "./renderer.js";
+import { initMenu } from "./menu.js";
 
 /* =====================
    Screen Management
 ===================== */
 const menuScreen = document.getElementById("menu-screen");
 const gameScreen = document.getElementById("game-screen");
-
-function showGameScreen() {
-  menuScreen.style.display = "none";
-  gameScreen.style.display = "flex";
-}
 
 /* =====================
    Game State
@@ -55,6 +51,19 @@ function startGame() {
   }
 }
 
+function resetGameState() {
+  GameState.goal = null;
+  board = null;
+  player = null;
+
+  const gameBoardEl = document.getElementById("game-board");
+  gameBoardEl.innerHTML = "";
+}
+
+const menu = initMenu({
+  onStartGame: startGame,
+});
+
 /* =====================
    Controls
 ===================== */
@@ -69,21 +78,6 @@ const answerFrontBtn = document.getElementById("answer-front");
 turnRightBtn.addEventListener("click", () => {
   if (!player) return;
   player.turnRight();
-  updatePlayer(player);
-  updateGoalVisibility();
-
-  if (GameState.mode === "level" && GameState.goal) {
-    const direction = checkGoal(player, GameState.goal);
-
-    if (direction) {
-      console.log(`You can see it on your ${direction}`);
-    }
-  }
-});
-
-turnLeftBtn.addEventListener("click", () => {
-  if (!player) return;
-  player.turnLeft();
   updatePlayer(player);
   updateGoalVisibility();
 
@@ -114,8 +108,24 @@ goStraightBtn.addEventListener("click", () => {
   }
 });
 
+turnLeftBtn.addEventListener("click", () => {
+  if (!player) return;
+  player.turnLeft();
+  updatePlayer(player);
+  updateGoalVisibility();
+
+  if (GameState.mode === "level" && GameState.goal) {
+    const direction = checkGoal(player, GameState.goal);
+
+    if (direction) {
+      console.log(`You can see it on your ${direction}`);
+    }
+  }
+});
+
 menuBtn.addEventListener("click", () => {
-  showMenuScreen();
+  menu.showMenuScreen();
+  resetGameState();
 });
 
 function handleAnswer(answer) {
@@ -136,30 +146,18 @@ answerLeftBtn.addEventListener("click", () => handleAnswer("left"));
 answerRightBtn.addEventListener("click", () => handleAnswer("right"));
 answerFrontBtn.addEventListener("click", () => handleAnswer("front"));
 
-/* =====================
-   Menu
-===================== */
-document.querySelectorAll("#menu-screen button").forEach((button) => {
-  button.addEventListener("click", () => {
-    GameState.mode = button.dataset.mode; // "free" | "level"
-    GameState.screen = "game";
-    showGameScreen();
-    startGame();
-  });
-});
+// function showMenuScreen() {
+//   gameScreen.style.display = "none";
+//   menuScreen.style.display = "block";
 
-function showMenuScreen() {
-  gameScreen.style.display = "none";
-  menuScreen.style.display = "block";
+//   GameState.screen = "menu";
+//   GameState.goal = null;
+//   board = null;
+//   player = null;
+//   if (board) clearGoalHighlight(board);
 
-  GameState.screen = "menu";
-  GameState.goal = null;
-  board = null;
-  player = null;
-  if (board) clearGoalHighlight(board);
-
-  document.getElementById("game-board").innerHTML = "";
-}
+//   document.getElementById("game-board").innerHTML = "";
+// }
 
 document.getElementById("next-btn").addEventListener("click", resetLevel);
 
@@ -196,3 +194,5 @@ function resetLevel() {
 //but english wont show on the standard screen
 
 //I AM NOT SURE IF THE LEFT RIGHT LOGIC IS PERFECT BASED ON DIRECTION
+
+// CONVERT MENU INTO A MENU . jS

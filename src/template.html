@@ -8,16 +8,34 @@
 
   <body>
     <div class="background-img"></div>
+
     <div id="menu-screen">
       <div id="title-text">
         <h1 id="menu-title-text">My Town ~ 私の街</h1>
-        <p id="menu-subtitle-text">Choose your mode below.</p>
+        <p id="menu-subtitle-text">方向を表す英語ゲーム</p>
       </div>
-      <div id="main-menu-btns">
+      <div id="menu-main" class="menu-panel">
+        <button id="start-btn">Start</button>
+        <button id="character-btn">Character Select</button>
+        <button id="about-btn">About</button>
+      </div>
+
+      <div id="menu-start" class="menu-panel" style="display: none">
         <button data-mode="free">Free Mode</button>
         <button data-mode="level">Level Mode</button>
-        <button>Character Select (coming soon)</button>
-        <button>About This Game</button>
+        <button class="back-btn">Back</button>
+      </div>
+
+      <div id="menu-character" class="menu-panel" style="display: none">
+        <!-- character buttons -->
+        <button data-character="guy.png">Character 1</button>
+        <button data-character="girl.png">Character 2</button>
+        <button class="back-btn">Back</button>
+      </div>
+
+      <div id="menu-about" class="menu-panel" style="display: none">
+        <p>About text here</p>
+        <button class="back-btn">Back</button>
       </div>
     </div>
 
@@ -34,8 +52,8 @@
       </div>
       <div id="answer-btns">
         <button id="answer-left">You can see it on your left.</button>
-        <button id="answer-right">You can see it on your right.</button>
         <button id="answer-front">You can see it in front of you.</button>
+        <button id="answer-right">You can see it on your right.</button>
       </div>
 
       <button id="menu-btn">Back to Menu</button>

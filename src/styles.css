@@ -78,12 +78,13 @@ button {
   height: 100%;
 }
 
-#main-menu-btns {
+.menu-panel {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-#menu-title-text {
+#menu-title-text,
+#menu-subtitle-text {
   color: #ccc;
 }
