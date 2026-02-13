@@ -3,10 +3,10 @@ const gameBoard = document.querySelector("#game-board");
 
 export function makeBoard() {
   const size = 5;
-  let boxSize = 100;
+  const boxSize = 100;
   const board = [];
-  let boardWidth = size * boxSize;
-  gameBoard.style.width = boardWidth + "px";
+
+  gameBoard.style.width = size * boxSize + "px";
 
   for (let y = 0; y < size; y++) {
     const row = [];
@@ -14,14 +14,13 @@ export function makeBoard() {
       const box = document.createElement("div");
       box.style.width = boxSize + "px";
       box.style.height = boxSize + "px";
-      // box.style.border = "solid red 1px"
       box.style.backgroundColor = "white";
       box.style.boxSizing = "border-box";
 
       gameBoard.appendChild(box);
       row.push({
         map: null,
-        buildingIndex: null,
+        building: null, // <- add this
         el: box,
       });
     }
@@ -31,26 +30,23 @@ export function makeBoard() {
 }
 
 export function setBoard(board) {
-  let i = 0;
-  // Buildings
   const buildings = [
-    [0, 0],
-    [0, 1],
-    [0, 4],
-    [2, 1],
-    [2, 3],
-    [2, 4],
-    [4, 4],
+    { y: 0, x: 0, id: "pet-shop", name: "Pet Shop", imgIndex: 0 },
+    { y: 0, x: 1, id: "bank", name: "Bank", imgIndex: 1 },
+    { y: 0, x: 4, id: "temple", name: "Temple", imgIndex: 2 },
+    { y: 2, x: 1, id: "house", name: "House", imgIndex: 3 },
+    { y: 2, x: 3, id: "hospital", name: "Hospital", imgIndex: 4 },
+    { y: 2, x: 4, id: "supermarket", name: "Supermarket", imgIndex: 5 },
+    { y: 4, x: 4, id: "school", name: "School", imgIndex: 6 },
   ];
 
-  buildings.forEach(([y, x]) => {
-    board[y][x].map = "building";
-    board[y][x].buildingIndex = i;
-
-    i++;
+  buildings.forEach((b) => {
+    const cell = board[b.y][b.x];
+    cell.map = "building";
+    cell.building = { id: b.id, name: b.name, imgIndex: b.imgIndex };
   });
 
-  // Walkable paths
+  // paths stay the same
   const paths = [
     [4, 2],
     [3, 2],
@@ -58,17 +54,13 @@ export function setBoard(board) {
     [1, 2],
     [0, 2],
   ];
-  paths.forEach(([y, x]) => {
-    board[y][x].map = "path";
-  });
+  paths.forEach(([y, x]) => (board[y][x].map = "path"));
 
   const pathCenter = [
     [3, 2],
     [1, 2],
   ];
-  pathCenter.forEach(([y, x]) => {
-    board[y][x].map = "path2";
-  });
+  pathCenter.forEach(([y, x]) => (board[y][x].map = "path2"));
 
   const pathHorizontal = [
     [1, 0],
@@ -80,9 +72,7 @@ export function setBoard(board) {
     [3, 3],
     [3, 4],
   ];
-  pathHorizontal.forEach(([y, x]) => {
-    board[y][x].map = "path3";
-  });
+  pathHorizontal.forEach(([y, x]) => (board[y][x].map = "path3"));
 }
 
 export function isWalkable(board, y, x, orientation) {

@@ -1,11 +1,12 @@
+// goalSystem.js
 export function setRandomGoal(board) {
-  //goalSystem.js
   const buildings = [];
 
   for (let y = 0; y < board.length; y++) {
     for (let x = 0; x < board[y].length; x++) {
-      if (board[y][x].map === "building") {
-        buildings.push({ y, x });
+      const cell = board[y][x];
+      if (cell.map === "building" && cell.building) {
+        buildings.push({ y, x, building: cell.building });
       }
     }
   }

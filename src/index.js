@@ -1,152 +1,171 @@
 // index.js
 import "./styles.css";
 import { makeBoard, setBoard, isWalkable } from "./board.js";
-import { setDisplay, updatePlayer } from "./renderer.js";
+import {
+  setDisplay,
+  updatePlayer,
+  highlightGoal,
+  clearGoalHighlight,
+  getBuildingImgByIndex, // <-- you need to EXPORT this from renderer.js
+} from "./renderer.js";
 import { createPlayer } from "./player.js";
 import { GameState } from "./gameState.js";
 import { setRandomGoal, checkGoal } from "./goalSystem.js";
-import { highlightGoal, clearGoalHighlight } from "./renderer.js";
 import { initMenu } from "./menu.js";
 
 /* =====================
-   Screen Management
+   DOM
 ===================== */
-const menuScreen = document.getElementById("menu-screen");
-const gameScreen = document.getElementById("game-screen");
+const el = {
+  gameBoard: document.getElementById("game-board"),
+  menuBtn: document.getElementById("menu-btn"),
+  nextBtn: document.getElementById("next-btn"),
+
+  turnRightBtn: document.getElementById("turn-right-btn"),
+  turnLeftBtn: document.getElementById("turn-left-btn"),
+  goStraightBtn: document.getElementById("go-straight-btn"),
+
+  answerLeftBtn: document.getElementById("answer-left"),
+  answerRightBtn: document.getElementById("answer-right"),
+  answerFrontBtn: document.getElementById("answer-front"),
+
+  // Optional goal UI (only works if these exist in your HTML)
+  goalLabel: document.getElementById("goal-label"), // <div id="goal-label"></div>
+  goalImg: document.getElementById("goal-img"), // <img id="goal-img" />
+};
 
 /* =====================
-   Game State
+   Runtime State
 ===================== */
 let board = null;
 let player = null;
 
+/* =====================
+   Goal UI + Visibility
+===================== */
+function renderGoalUI() {
+  // If you haven't added the HTML yet, silently do nothing
+  if (!el.goalLabel || !el.goalImg) return;
+
+  if (GameState.mode !== "level" || !GameState.goal) {
+    el.goalLabel.textContent = "";
+    el.goalImg.removeAttribute("src");
+    el.goalImg.style.display = "none";
+    return;
+  }
+
+  const { building } = GameState.goal;
+  el.goalLabel.textContent = `Where is the ${building.name}?`;
+
+  el.goalImg.src = getBuildingImgByIndex(building.imgIndex);
+  el.goalImg.alt = building.name;
+  el.goalImg.style.display = "block";
+}
+
 function updateGoalVisibility() {
-  if (GameState.mode !== "level" || !GameState.goal) return;
+  if (GameState.mode !== "level" || !GameState.goal || !player) {
+    GameState.currentVisibleDirection = null;
+    return;
+  }
 
   const direction = checkGoal(player, GameState.goal);
-
-  GameState.currentVisibleDirection = direction; // can be left/right/front/behind/null
-
-  if (direction) {
-    console.log(`Building is ${direction}`);
-  }
+  GameState.currentVisibleDirection = direction; // left/right/front/behind/null
 }
 
 /* =====================
-   Game Setup
+   Level Lifecycle
 ===================== */
-function startGame() {
-  document.getElementById("game-board").innerHTML = "";
+function initLevel() {
+  // Clear board DOM
+  el.gameBoard.innerHTML = "";
 
+  // Build new board + player
   board = makeBoard();
   player = createPlayer(4, 2);
+
+  // Apply map + render tiles
   setBoard(board);
   setDisplay(board);
-  updatePlayer(player);
-  updateGoalVisibility();
 
+  // Render player
+  updatePlayer(player);
+
+  // Create goal (level mode)
   if (GameState.mode === "level") {
     GameState.goal = setRandomGoal(board);
     highlightGoal(board, GameState.goal);
+  } else {
+    GameState.goal = null;
   }
+
+  // Sync UI/state
+  renderGoalUI();
+  updateGoalVisibility();
+
+  // Hide next button until correct
+  el.nextBtn.style.display = "none";
 }
 
 function resetGameState() {
   GameState.goal = null;
+  GameState.currentVisibleDirection = null;
   board = null;
   player = null;
-
-  const gameBoardEl = document.getElementById("game-board");
-  gameBoardEl.innerHTML = "";
+  el.gameBoard.innerHTML = "";
+  el.nextBtn.style.display = "none";
+  renderGoalUI();
 }
 
-const menu = initMenu({
-  onStartGame: startGame,
-});
-
 /* =====================
-   Controls
+   Movement + Turn Helpers
 ===================== */
-const turnRightBtn = document.querySelector("#turn-right-btn");
-const turnLeftBtn = document.querySelector("#turn-left-btn");
-const goStraightBtn = document.querySelector("#go-straight-btn");
-const menuBtn = document.getElementById("menu-btn");
-const answerLeftBtn = document.getElementById("answer-left");
-const answerRightBtn = document.getElementById("answer-right");
-const answerFrontBtn = document.getElementById("answer-front");
+function afterPlayerChanged() {
+  updatePlayer(player);
+  updateGoalVisibility();
+  // If you want debug logs, put them here (one place)
+  // if (GameState.currentVisibleDirection) console.log(GameState.currentVisibleDirection);
+}
 
-turnRightBtn.addEventListener("click", () => {
+function turnRight() {
   if (!player) return;
   player.turnRight();
-  updatePlayer(player);
-  updateGoalVisibility();
+  afterPlayerChanged();
+}
 
-  if (GameState.mode === "level" && GameState.goal) {
-    const direction = checkGoal(player, GameState.goal);
-
-    if (direction) {
-      console.log(`You can see it on your ${direction}`);
-    }
-  }
-});
-
-goStraightBtn.addEventListener("click", () => {
-  if (!player || !board) return;
-
-  if (isWalkable(board, player.y, player.x, player.orientation)) {
-    player.move();
-    updatePlayer(player);
-    updateGoalVisibility();
-
-    if (GameState.mode === "level" && GameState.goal) {
-      const direction = checkGoal(player, GameState.goal);
-
-      if (direction) {
-        console.log(`You can see it on your ${direction}`);
-      }
-    }
-  }
-});
-
-turnLeftBtn.addEventListener("click", () => {
+function turnLeft() {
   if (!player) return;
   player.turnLeft();
-  updatePlayer(player);
-  updateGoalVisibility();
+  afterPlayerChanged();
+}
 
-  if (GameState.mode === "level" && GameState.goal) {
-    const direction = checkGoal(player, GameState.goal);
+function goStraight() {
+  if (!player || !board) return;
+  if (!isWalkable(board, player.y, player.x, player.orientation)) return;
 
-    if (direction) {
-      console.log(`You can see it on your ${direction}`);
-    }
-  }
-});
+  player.move();
+  afterPlayerChanged();
+}
 
-menuBtn.addEventListener("click", () => {
-  menu.showMenuScreen();
-  resetGameState();
-});
-
+/* =====================
+   Answer / Win Flow
+===================== */
 function handleAnswer(answer) {
   if (GameState.mode !== "level" || !GameState.goal) return;
 
   if (GameState.currentVisibleDirection === answer) {
-    console.log("Correct");
+    // Correct
     clearGoalHighlight(board);
-    GameState.goal = null;
-    const nextBtn = document.getElementById("next-btn");
-    nextBtn.style.display = "block";
+
+    // Keep goal if you want to show it in the UI until next level,
+    // or set null if you want the panel to clear:
+    // GameState.goal = null;
+
+    el.nextBtn.style.display = "block";
   } else {
-    console.log("Try again");
+    // Wrong
+    // console.log("Try again");
   }
 }
-
-answerLeftBtn.addEventListener("click", () => handleAnswer("left"));
-answerRightBtn.addEventListener("click", () => handleAnswer("right"));
-answerFrontBtn.addEventListener("click", () => handleAnswer("front"));
-
-document.getElementById("next-btn").addEventListener("click", resetLevel);
 
 function resetLevel() {
   if (!player || !board) return;
@@ -154,22 +173,49 @@ function resetLevel() {
   // Reset player position
   player.y = 4;
   player.x = 2;
-  player.orientation = "north"; // match your player system
+  player.orientation = "north";
 
   updatePlayer(player);
 
   // Clear old highlight
   clearGoalHighlight(board);
 
-  // Create new goal
+  // New goal
   GameState.goal = setRandomGoal(board);
-
-  // Highlight new goal
   highlightGoal(board, GameState.goal);
 
+  // Sync UI/state
+  renderGoalUI();
+  updateGoalVisibility();
+
   // Hide button
-  document.getElementById("next-btn").style.display = "none";
+  el.nextBtn.style.display = "none";
 }
+
+/* =====================
+   Menu
+===================== */
+const menu = initMenu({
+  onStartGame: initLevel,
+});
+
+el.menuBtn.addEventListener("click", () => {
+  menu.showMenuScreen();
+  resetGameState();
+});
+
+/* =====================
+   Controls Wiring
+===================== */
+el.turnRightBtn.addEventListener("click", turnRight);
+el.turnLeftBtn.addEventListener("click", turnLeft);
+el.goStraightBtn.addEventListener("click", goStraight);
+
+el.answerLeftBtn.addEventListener("click", () => handleAnswer("left"));
+el.answerRightBtn.addEventListener("click", () => handleAnswer("right"));
+el.answerFrontBtn.addEventListener("click", () => handleAnswer("front"));
+
+el.nextBtn.addEventListener("click", resetLevel);
 
 // Today things I want to do
 // Assign names of the buildings to each building
@@ -178,7 +224,7 @@ function resetLevel() {
 //for now, this is a random repeated, loop -- but will be expanded on in the future. I should make a note of this in my readme and to do.
 
 //I want to add a "Logo" or some kind of improvements on the main meun
-//update stylings on the menu and main game screen
+//update stylings on the menu and main game screen++
 // ensure the game loop is good
 // add an "I" information area, where the player can get all the info they need to play, JP translations, etc. and guidance, or legend
 //

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>My Town</title>
   </head>
 
   <body>
@@ -14,6 +14,7 @@
         <h1 class="info-text">My Town ~ 私の街</h1>
         <p class="info-text">方向を表す英語ゲーム</p>
       </div>
+
       <div id="menu-main" class="menu-panel">
         <button id="start-btn">Start</button>
         <button id="character-btn">Character Select</button>
@@ -25,6 +26,7 @@
         <button data-mode="free">Free Mode</button>
         <button class="back-btn">Back</button>
       </div>
+
       <div id="menu-character" class="menu-panel" style="display: none">
         <img class="char-select" data-character="guy.png" src="icons/guy.png" />
         <img
@@ -50,23 +52,37 @@
     </div>
 
     <div id="game-screen">
-      <div id="game-container">
-        <div id="game-board"></div>
-        <img id="player" src="./icons/guy.png" />
-      </div>
-      <div id="btns">
-        <button id="turn-left-btn">Turn left.</button>
-        <button id="go-straight-btn">Go Straight.</button>
-        <button id="turn-right-btn">Turn right.</button>
-        <button id="next-btn" style="display: none">Next</button>
-      </div>
-      <div id="answer-btns">
-        <button id="answer-left">You can see it on your left.</button>
-        <button id="answer-front">You can see it in front of you.</button>
-        <button id="answer-right">You can see it on your right.</button>
+      <button id="menu-btn" class="menu-float">Back to Menu</button>
+
+      <div id="play-area">
+        <div id="game-container">
+          <div id="game-board"></div>
+          <img id="player" src="./icons/guy.png" />
+
+          <!-- FLOATING goal panel (does not affect centering) -->
+          <div id="goal-panel">
+            <div id="goal-label"></div>
+            <img id="goal-img" />
+            <button id="next-btn" class="next-btn" style="display: none">
+              Next
+            </button>
+          </div>
+        </div>
       </div>
 
-      <button id="menu-btn">Back to Menu</button>
+      <div id="controls">
+        <div id="btns">
+          <button id="turn-left-btn">Turn left.</button>
+          <button id="go-straight-btn">Go Straight.</button>
+          <button id="turn-right-btn">Turn right.</button>
+        </div>
+
+        <div id="answer-btns">
+          <button id="answer-left">You can see it on your left.</button>
+          <button id="answer-front">You can see it in front of you.</button>
+          <button id="answer-right">You can see it on your right.</button>
+        </div>
+      </div>
     </div>
   </body>
 </html>

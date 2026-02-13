@@ -30,11 +30,16 @@ export function setDisplay(board) {
 
       // Draw terrain
       switch (cell.map) {
-        case "building":
-          const img = buildingImgs[cell.buildingIndex % buildingImgs.length];
-
+        case "building": {
+          const idx = cell.building?.imgIndex ?? 0;
+          const img = buildingImgs[idx % buildingImgs.length];
           cell.el.style.backgroundImage = `url(${img})`;
+
+          // optional: helpful for debugging / hover tooltips
+          cell.el.title = cell.building?.name ?? "";
           break;
+        }
+
         case "path":
           cell.el.style.backgroundImage = `url(${tilePath})`;
           break;
@@ -101,4 +106,8 @@ export function clearGoalHighlight(board) {
       board[y][x].el.classList.remove("goal-highlight");
     }
   }
+}
+
+export function getBuildingImgByIndex(idx) {
+  return buildingImgs[idx % buildingImgs.length];
 }
