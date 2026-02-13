@@ -84,12 +84,16 @@ button {
   gap: 15px;
 }
 
-#menu-title-text,
-#menu-subtitle-text {
+.info-text {
   color: #ccc;
 }
 
 .char-select {
   width: 52px;
   height: 100%;
+}
+
+a {
+  color: #0066cc; /* Sets the default link color */
+  font-weight: bold; /* Makes the link text bold */
 }

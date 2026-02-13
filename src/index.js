@@ -146,19 +146,6 @@ answerLeftBtn.addEventListener("click", () => handleAnswer("left"));
 answerRightBtn.addEventListener("click", () => handleAnswer("right"));
 answerFrontBtn.addEventListener("click", () => handleAnswer("front"));
 
-// function showMenuScreen() {
-//   gameScreen.style.display = "none";
-//   menuScreen.style.display = "block";
-
-//   GameState.screen = "menu";
-//   GameState.goal = null;
-//   board = null;
-//   player = null;
-//   if (board) clearGoalHighlight(board);
-
-//   document.getElementById("game-board").innerHTML = "";
-// }
-
 document.getElementById("next-btn").addEventListener("click", resetLevel);
 
 function resetLevel() {
@@ -184,6 +171,18 @@ function resetLevel() {
   document.getElementById("next-btn").style.display = "none";
 }
 
+// Today things I want to do
+// Assign names of the buildings to each building
+// display the "goal" objective block to the right. "Where is the < bank > ? and display a picture of that building next to it"
+// when this is done, there should be a popup that displays a GOAL COMPELTE message (Go to next level? -- GO button) and winning confetti
+//for now, this is a random repeated, loop -- but will be expanded on in the future. I should make a note of this in my readme and to do.
+
+//I want to add a "Logo" or some kind of improvements on the main meun
+//update stylings on the menu and main game screen
+// ensure the game loop is good
+// add an "I" information area, where the player can get all the info they need to play, JP translations, etc. and guidance, or legend
+//
+
 // note to self, messages and names of buildings need to be assigned
 //to each object
 // so we can announce XYZ, the names of the buildings...
@@ -192,7 +191,3 @@ function resetLevel() {
 //the LEGEND will explain teh names of each of the buildings
 // and japanese translations for direction btns etc.
 //but english wont show on the standard screen
-
-//I AM NOT SURE IF THE LEFT RIGHT LOGIC IS PERFECT BASED ON DIRECTION
-
-// CONVERT MENU INTO A MENU . jS
