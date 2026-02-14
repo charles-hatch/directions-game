@@ -1,4 +1,8 @@
 /* styles.css */
+
+/* =====================
+   RESET / BASE
+===================== */
 * {
   box-sizing: border-box;
 }
@@ -22,7 +26,9 @@ body {
   z-index: -1;
 }
 
-/* Buttons (global) */
+/* =====================
+   GLOBAL ELEMENTS
+===================== */
 button {
   padding: 12px 18px;
   font-size: 14px;
@@ -36,19 +42,33 @@ button:hover {
   filter: brightness(0.95);
 }
 
+a {
+  color: #0066cc;
+  font-weight: bold;
+}
+
 /* =====================
    MENU
 ===================== */
-.menu-panel {
+#title-text {
   display: flex;
   flex-direction: column;
-  gap: 15px;
   align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
 }
 
 .info-text {
   color: #ccc;
   text-align: center;
+  margin: 0;
+}
+
+.menu-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
 }
 
 .char-select {
@@ -57,20 +77,28 @@ button:hover {
   cursor: pointer;
 }
 
-a {
-  color: #0066cc;
-  font-weight: bold;
+.menu-desc {
+  width: min(700px, 92vw);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.menu-desc .info-text {
+  margin: 6px 0;
+  line-height: 1.6;
+  font-size: 16px;
 }
 
 /* =====================
    GAME SCREEN LAYOUT
 ===================== */
 #game-screen {
-  display: none; /* your JS toggles this */
+  display: none; /* JS sets to flex */
   width: min(1100px, 96vw);
   position: relative;
   padding: 20px;
-
   flex-direction: column;
   align-items: center;
   gap: 18px;
@@ -80,11 +108,11 @@ a {
 .menu-float {
   position: absolute;
   top: 12px;
-  left: 150px;
-  z-index: 50;
+  left: 12px; /* was 150px; keep it predictable */
+  z-index: 1000; /* always above goal/legend */
 }
 
-/* Board + goal row */
+/* Center the board area */
 #play-area {
   width: 100%;
   display: flex;
@@ -92,16 +120,15 @@ a {
   align-items: flex-start;
 }
 
-/* Board container is the anchor for the floating goal panel */
-
 /* =====================
    BOARD
 ===================== */
 #game-container {
-  position: relative;
+  position: relative; /* anchor for goal panel */
   display: inline-block;
-  overflow: visible; /* allows wide legend dropdown to spill out */
+  overflow: visible; /* allow legend dropdown to spill out */
 }
+
 #game-board {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -126,7 +153,7 @@ a {
 }
 
 /* =====================
-   GOAL PANEL
+   GOAL PANEL (floating)
 ===================== */
 #goal-panel {
   position: absolute;
@@ -145,8 +172,10 @@ a {
   flex-direction: column;
   gap: 8px;
 
-  overflow: visible; /* lets legend dropdown expand outside */
+  overflow: visible; /* legend dropdown can extend */
+  z-index: 50;
 }
+
 #goal-label {
   font-size: 17px;
   line-height: 1.3;
@@ -155,8 +184,8 @@ a {
 
 #goal-img {
   width: 100%;
-  height: 140px; /* keep it compact */
-  object-fit: contain; /* don’t crop */
+  height: 140px;
+  object-fit: contain;
   border-radius: 10px;
   display: none; /* JS will show it */
 }
@@ -166,43 +195,9 @@ a {
   margin-top: 6px;
 }
 
-/* If the viewport is narrow, put goal panel below the board instead */
-@media (max-width: 900px) {
-  #goal-panel {
-    position: static;
-    width: min(90vw, 360px);
-    margin-top: 12px;
-  }
-}
 /* =====================
-   CONTROLS
+   LEGEND DROPDOWN (expands wider)
 ===================== */
-#controls {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-}
-
-#btns,
-#answer-btns {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-#confetti {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 999; /* above game UI */
-}
-
 .legend-toggle {
   width: 100%;
   padding: 10px 12px;
@@ -211,11 +206,11 @@ a {
 
 .legend-panel {
   position: absolute;
-  top: calc(100% + 8px); /* drop below the Legend button */
-  right: 0; /* align to right edge of goal panel */
-  width: 500px; /* wider than goal panel */
-  max-width: min(60vw, 420px);
-  max-height: 320px;
+  top: calc(100% + 8px);
+  left: 0;
+
+  width: min(400px, 70vw); /* fixed the conflicting width/max-width */
+  max-height: 340px;
   overflow: auto;
 
   padding: 12px;
@@ -249,7 +244,7 @@ a {
   padding: 0;
   margin: 0;
   display: grid;
-  gap: 8px; /* spacing between rows */
+  gap: 8px;
 }
 
 .legend-list li {
@@ -267,40 +262,75 @@ a {
 .legend-list .en {
   font-weight: 700;
   letter-spacing: 0.2px;
+  overflow-wrap: anywhere;
 }
 
 .legend-list .jp {
   opacity: 0.92;
-  white-space: nowrap; /* keeps JP from wrapping weirdly */
-}
-
-/* If your English is long, let it wrap nicely */
-.legend-list .en {
-  overflow-wrap: anywhere;
+  white-space: nowrap;
 }
 
 .legend-list li.stack {
-  grid-template-columns: 1fr; /* stack vertically */
+  grid-template-columns: 1fr;
 }
 
 .legend-list li.stack .jp {
   margin-top: 4px;
 }
 
-/* Optional: tighter on small screens */
-@media (max-width: 900px) {
-  .legend-list li {
-    grid-template-columns: 1fr; /* stack EN then JP */
-  }
-  .legend-list .jp {
-    white-space: normal;
-  }
+/* =====================
+   CONTROLS
+===================== */
+#controls {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
 }
 
+#btns,
+#answer-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* =====================
+   CONFETTI CANVAS
+===================== */
+#confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999; /* above game UI */
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
 @media (max-width: 900px) {
+  #goal-panel {
+    position: static;
+    width: min(90vw, 360px);
+    margin-top: 12px;
+  }
+
   .legend-panel {
     position: static;
     width: 100%;
-    max-width: none;
+    max-height: none;
+  }
+
+  .legend-list li {
+    grid-template-columns: 1fr; /* stack EN then JP */
+  }
+
+  .legend-list .jp {
+    white-space: normal;
   }
 }

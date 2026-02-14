@@ -12,3 +12,6 @@ This project is intended to help teach Japanese Elementary students learn Englis
 Board logic assigns abstract tile IDs; renderer maps IDs to visual assets.
 
 //for now, this is a random repeated, loop -- but will be expanded on in the future. I should make a note of this in my readme and to do.
+// future expansion includes levels, points, etc.
+// alternative maps, expanded, bigger, building ranomized placement etc.
+// character selection screen expanded

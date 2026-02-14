@@ -1,5 +1,12 @@
 // menu.js
 import { GameState } from "./gameState.js";
+import guy from "./icons/guy.png";
+import girl from "./icons/girl.png";
+
+const characterMap = {
+  "guy.png": guy,
+  "girl.png": girl,
+};
 
 export function initMenu({ onStartGame }) {
   const menuScreen = document.getElementById("menu-screen");
@@ -67,8 +74,8 @@ export function initMenu({ onStartGame }) {
     .querySelectorAll("#menu-character [data-character]")
     .forEach((el) => {
       el.onclick = () => {
-        const src = el.dataset.character;
-        document.getElementById("player").src = `icons/${src}`; // relative to HTML
+        const key = el.dataset.character;
+        document.getElementById("player").src = characterMap[key];
         GameState.menuView = "main";
         renderMenu();
       };
