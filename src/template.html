@@ -16,15 +16,15 @@
       </div>
 
       <div id="menu-main" class="menu-panel">
-        <button id="start-btn">Start</button>
-        <button id="character-btn">Character Select</button>
-        <button id="about-btn">About</button>
+        <button id="start-btn">スタート</button>
+        <button id="character-btn">キャラクター選択</button>
+        <button id="about-btn">このゲームについて</button>
       </div>
 
       <div id="menu-start" class="menu-panel" style="display: none">
-        <button data-mode="level">Level Mode</button>
-        <button data-mode="free">Free Mode</button>
-        <button class="back-btn">Back</button>
+        <button data-mode="level">レベルモード</button>
+        <button data-mode="free">フリーモード</button>
+        <button class="back-btn">戻る</button>
       </div>
 
       <div id="menu-character" class="menu-panel" style="display: none">
@@ -52,7 +52,7 @@
     </div>
 
     <div id="game-screen">
-      <button id="menu-btn" class="menu-float">Back to Menu</button>
+      <button id="menu-btn" class="menu-float">メニューへ戻る</button>
 
       <div id="play-area">
         <div id="game-container">
@@ -64,7 +64,7 @@
             <div id="goal-label"></div>
             <img id="goal-img" />
             <button id="next-btn" class="next-btn" style="display: none">
-              Next
+              次へ
             </button>
           </div>
         </div>
@@ -83,6 +83,7 @@
           <button id="answer-right">You can see it on your right.</button>
         </div>
       </div>
+      <canvas id="confetti"></canvas>
     </div>
   </body>
 </html>
