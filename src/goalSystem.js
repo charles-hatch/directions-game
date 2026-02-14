@@ -1,4 +1,7 @@
 // goalSystem.js
+// goalSystem.js
+import { GameState } from "./gameState.js";
+
 export function setRandomGoal(board) {
   const buildings = [];
 
@@ -11,7 +14,18 @@ export function setRandomGoal(board) {
     }
   }
 
-  return buildings[Math.floor(Math.random() * buildings.length)];
+  if (buildings.length === 0) return null;
+  if (buildings.length === 1) return buildings[0]; // can’t avoid repeats
+
+  // Re-roll until it differs from lastGoalId (bounded loop)
+  let pick = null;
+  for (let tries = 0; tries < 10; tries++) {
+    pick = buildings[Math.floor(Math.random() * buildings.length)];
+    if (pick.building.id !== GameState.lastGoalId) break;
+  }
+
+  GameState.lastGoalId = pick.building.id;
+  return pick;
 }
 
 export function checkGoal(player, goal) {

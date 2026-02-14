@@ -31,13 +31,13 @@ export function makeBoard() {
 
 export function setBoard(board) {
   const buildings = [
-    { y: 0, x: 0, id: "pet-shop", name: "Pet Shop", imgIndex: 0 },
-    { y: 0, x: 1, id: "bank", name: "Bank", imgIndex: 1 },
-    { y: 0, x: 4, id: "temple", name: "Temple", imgIndex: 2 },
-    { y: 2, x: 1, id: "house", name: "House", imgIndex: 3 },
-    { y: 2, x: 3, id: "hospital", name: "Hospital", imgIndex: 4 },
-    { y: 2, x: 4, id: "supermarket", name: "Supermarket", imgIndex: 5 },
-    { y: 4, x: 4, id: "school", name: "School", imgIndex: 6 },
+    { y: 0, x: 0, id: "pet-store", name: "pet store", imgIndex: 0 },
+    { y: 0, x: 1, id: "bank", name: "bank", imgIndex: 1 },
+    { y: 0, x: 4, id: "temple", name: "temple", imgIndex: 2 },
+    { y: 2, x: 1, id: "house", name: "house", imgIndex: 3 },
+    { y: 2, x: 3, id: "hospital", name: "hospital", imgIndex: 4 },
+    { y: 2, x: 4, id: "supermarket", name: "supermarket", imgIndex: 5 },
+    { y: 4, x: 4, id: "school", name: "school", imgIndex: 6 },
   ];
 
   buildings.forEach((b) => {

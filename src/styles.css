@@ -100,8 +100,8 @@ a {
 #game-container {
   position: relative;
   display: inline-block;
+  overflow: visible; /* allows wide legend dropdown to spill out */
 }
-
 #game-board {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -131,7 +131,7 @@ a {
 #goal-panel {
   position: absolute;
   top: 0;
-  left: calc(100% + 16px); /* sits to the right of the board */
+  left: calc(100% + 16px);
   width: 190px;
   padding: 10px;
   border-radius: 12px;
@@ -144,11 +144,12 @@ a {
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
 
+  overflow: visible; /* lets legend dropdown expand outside */
+}
 #goal-label {
-  font-size: 13px;
-  line-height: 1.2;
+  font-size: 17px;
+  line-height: 1.3;
   font-weight: 700;
 }
 
@@ -200,4 +201,106 @@ a {
   height: 100%;
   pointer-events: none;
   z-index: 999; /* above game UI */
+}
+
+.legend-toggle {
+  width: 100%;
+  padding: 10px 12px;
+  font-weight: 700;
+}
+
+.legend-panel {
+  position: absolute;
+  top: calc(100% + 8px); /* drop below the Legend button */
+  right: 0; /* align to right edge of goal panel */
+  width: 500px; /* wider than goal panel */
+  max-width: min(60vw, 420px);
+  max-height: 320px;
+  overflow: auto;
+
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(20, 20, 20, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(6px);
+  color: #eee;
+  z-index: 2000;
+}
+
+.legend-panel.hidden {
+  display: none;
+}
+
+.legend-section {
+  margin-bottom: 14px;
+}
+
+.legend-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0 0 10px 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.legend-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px; /* spacing between rows */
+}
+
+.legend-list li {
+  display: grid;
+  grid-template-columns: 1fr auto; /* EN left, JP right */
+  gap: 14px;
+  align-items: baseline;
+
+  padding: 10px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.legend-list .en {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.legend-list .jp {
+  opacity: 0.92;
+  white-space: nowrap; /* keeps JP from wrapping weirdly */
+}
+
+/* If your English is long, let it wrap nicely */
+.legend-list .en {
+  overflow-wrap: anywhere;
+}
+
+.legend-list li.stack {
+  grid-template-columns: 1fr; /* stack vertically */
+}
+
+.legend-list li.stack .jp {
+  margin-top: 4px;
+}
+
+/* Optional: tighter on small screens */
+@media (max-width: 900px) {
+  .legend-list li {
+    grid-template-columns: 1fr; /* stack EN then JP */
+  }
+  .legend-list .jp {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 900px) {
+  .legend-panel {
+    position: static;
+    width: 100%;
+    max-width: none;
+  }
 }

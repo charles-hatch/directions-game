@@ -10,3 +10,5 @@ This project is intended to help teach Japanese Elementary students learn Englis
 - “Free Mode supports teacher-led and pair-based classroom interaction, while Level Mode provides goal-driven, repeatable challenges for individual practice.”
 
 Board logic assigns abstract tile IDs; renderer maps IDs to visual assets.
+
+//for now, this is a random repeated, loop -- but will be expanded on in the future. I should make a note of this in my readme and to do.

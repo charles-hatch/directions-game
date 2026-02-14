@@ -6,4 +6,5 @@ export const GameState = {
   level: 1,
   goal: null,
   currentVisibleDirection: null,
+  lastGoalId: null,
 };

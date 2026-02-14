@@ -115,6 +115,25 @@ function confettiBurst() {
   confettiRAF = requestAnimationFrame(tick);
 }
 
+const legendToggle = document.getElementById("legend-toggle");
+const legendPanel = document.getElementById("legend-panel");
+
+function setLegendOpen(open) {
+  if (!legendToggle || !legendPanel) return;
+
+  legendToggle.setAttribute("aria-expanded", String(open));
+  legendPanel.classList.toggle("hidden", !open);
+  legendPanel.setAttribute("aria-hidden", String(!open));
+}
+
+legendToggle?.addEventListener("click", () => {
+  const isOpen = legendToggle.getAttribute("aria-expanded") === "true";
+  setLegendOpen(!isOpen);
+});
+
+// default closed
+setLegendOpen(false);
+
 /* =====================
    Runtime State
 ===================== */
@@ -297,23 +316,10 @@ el.answerFrontBtn.addEventListener("click", () => handleAnswer("front"));
 
 el.nextBtn.addEventListener("click", resetLevel);
 
-// when this is done winning confetti
-//for now, this is a random repeated, loop -- but will be expanded on in the future. I should make a note of this in my readme and to do.
-
-//I want to add a "Logo" or some kind of improvements on the main meun
-//update stylings on the menu and main game screen++
-// ensure the game loop is good
-// add an "I" information area, where the player can get all the info they need to play, JP translations, etc. and guidance, or legend
-//
-
-// note to self, messages and names of buildings need to be assigned
-//to each object
-// so we can announce XYZ, the names of the buildings...
-// the actual "goal" can be shown in the bottom or right or top right
-//of the screen "your goal, find this place"
-//the LEGEND will explain teh names of each of the buildings
-// and japanese translations for direction btns etc.
-//but english wont show on the standard screen
-
-// PREVENT SAME GOAL REPEATING TWICE
-// REMOVE BORDER
+// update main menu description
+// the main menu will have a clear description of the app, how to use it
+// how to play
+// fix character select
+// test
+// code cleanup
+// design final draft
