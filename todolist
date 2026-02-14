@@ -1,260 +1,103 @@
+UI Polish
 
+Improve button sizing and spacing consistency
 
-8. Layout cleanup (minimal CSS)
+Check font readability on projector (classroom test)
 
-No art pass. Just clarity.
+Confirm responsive layout (small laptop / tablet)
 
-Center board
+Ensure legend works cleanly on mobile width
 
-Group controls
+Remove any leftover console.log()
 
-Scale tiles responsively
+2️⃣ Code Cleanup
 
-Clear helper text placement
+Remove unused imports / variables
 
-Enough to look intentional in a portfolio.
+Remove commented-out debug code
 
-9. Stub future features (do not implement)
+Make naming consistent (goal, mode, etc.)
 
-Character select (disabled button or fixed value)
+Confirm character select works after rebuild
 
-Additional levels
+Confirm no hardcoded paths that break on build
 
-More goal types
+Make sure no duplicate CSS rules remain
 
-Only stubs. Zero logic.
+Run npm run build and check for warnings
 
-10. Final polish (portfolio-ready)
+Optional but strong portfolio move:
 
-Rename files clearly
+Add short comments explaining architecture (Board / Renderer / Goal system separation)
 
-gameState.js
+3️⃣ Functionality Check (Important)
 
-goalSystem.js
+Before publishing, test:
 
-Remove commented TODOs
+Level mode: goal never repeats twice
 
-Short README section:
+Free mode: no errors
 
-Target audience (ESL learners)
+Legend toggle: works open/close repeatedly
 
-Classroom usage
+Confetti clears properly
 
-Learning objective (directions / spatial language)
+Next button resets correctly
 
-Build order (recommended)
+Character select persists into game
 
-GameState + screens
+Menu → Game → Menu loop works cleanly
 
-Goal system
+4️⃣ Build / Deployment
 
-Left / right logic
+npm run build
 
-Level Mode success + Next
+Confirm /dist loads locally with a static server
 
-CSS cleanup
+Verify asset paths (icons, tiles) work in production
 
-Fake levels
+If using GitHub Pages, confirm correct base path
 
-If you want next, we should do either:
+5️⃣ README Cleanup
 
-Step-by-step goal detection wiring
+Include:
 
-Or a strict “one move → one check → one render” loop cleanup
+Project purpose (classroom English directions practice)
 
-**Do NOT over-engineer.**
+Tech stack (Webpack, vanilla JS, modular structure)
 
-- One core game loop
-- Thin “modes” that toggle behavior
+Feature list
 
-## 3. Goal System (core ESL mechanic)
+Screenshots
 
-This is the **heart of the project**. Do this early.
+How to run locally
 
-### Define goals as data
-
-``js
-const GOALS = [
-{ buildingIndex: 0, name: "Bank" },
-{ buildingIndex: 1, name: "Post Office" },
-];
-
-### Set goal
-
-export function setRandomGoal(board) {
-const buildings = board.flat().filter(c => c.map === "building");
-const target = buildings[Math.floor(Math.random() * buildings.length)];
-return target;
-}
-
-Store it:
-GameState.goal = setRandomGoal(board);
-
-## 4. “You can see it on your left/right” logic
-
-This is clean and impressive pedagogically.
-
-### How to detect arrival
-
-When player moves:
-
-```js
-function checkGoal(player, goal) {
-  const dx = goal.x - player.x;
-  const dy = goal.y - player.y;
-
-  if (Math.abs(dx) + Math.abs(dy) === 1) {
-    return getRelativeDirection(player.orientation, dx, dy);
-  }
-}
-```
-
-### Relative direction helper
-
-```js
-function getRelativeDirection(orientation, dx, dy) {
-  if (orientation === "north") return dx === -1 ? "left" : "right";
-  if (orientation === "south") return dx === 1 ? "left" : "right";
-  if (orientation === "east") return dy === -1 ? "left" : "right";
-  if (orientation === "west") return dy === 1 ? "left" : "right";
-}
-```
-
-### Display
-
-```js
-helper.textContent = `You can see it on your ${direction}`;
-```
-
-This directly maps to Japanese textbooks. Huge value.
-
----
-
-## 5. Teacher Mode vs Free Mode (toggle behavior)
-
-No new systems. Just **conditional rules**.
-
-### Free Mode
-
-- Player walks freely
-- No goal enforcement
-
-### Teacher Mode
-
-- Buttons disabled unless correct
-- OR teacher announces goal verbally
-
-Example:
-
-```js
-if (GameState.mode === "teacher" && !isCorrectMove) return;
-```
-
-That’s it. No extra UI needed yet.
-
----
-
-## 6. Levels (fake complexity, real payoff)
-
-Do NOT build procedural maps yet.
-
-### Level = map config
-
-```js
-const LEVELS = {
-  1: { size: 5, boardFn: setBoard },
-  2: { size: 7, boardFn: setBoardLarge },
-};
-```
-
-Switch by:
-
-```js
-GameState.level = 2;
-loadLevel(GameState.level);
-```
-
-Even if only Level 1 exists now, this looks intentional.
-
----
-
-## 7. Responsive + Cute Layout (minimal CSS changes)
-
-You don’t need “game art polish”, just **intentional layout**.
-
-### Key changes
-
-- Center the board
-- Scale tiles with `vw`
-- Wrap buttons in a control panel
-
-```css
-#game-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-#btns {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-```
+How it could expand (future roadmap)
 
 Optional:
 
-- Round buttons
-- Pastel background
-- Larger helper text
+Short reflection section (what you learned)
 
-That’s enough for a portfolio reviewer.
+6️⃣ Small Professional Touches (Often Forgotten)
 
----
+Add favicon
 
-## 8. Character Select (stub only)
+Add proper <title> tag (already good)
 
-Do NOT implement fully yet.
+Add alt text to images
 
-Menu:
+Check for spelling consistency (Supermarket vs Shop etc.)
 
-```html
-<button disabled>Character Select (Coming Soon)</button>
-```
+Confirm all Japanese text is correct (no awkward phrasing)
 
-Or:
+What You’re Missing Most Likely
 
-```js
-GameState.character = "boy";
-```
+You didn’t list:
 
-Future-proof, zero effort.
+Production path testing (very common break point)
 
----
+Removing dev console logs
 
-## 9. Final polish checklist (portfolio-ready)
+Screenshot for README
 
-- Rename files clearly (`gameState.js`, `goalSystem.js`)
-- Remove commented TODOs
-- Add a short README:
-  - Target audience
-  - Classroom usage
-  - ESL objective
-
----
-
-## Where to start (order)
-
-1. GameState + menu screen
-2. Goal system + left/right logic
-3. Teacher vs Free mode toggle
-4. CSS cleanup
-5. Levels (even fake ones)
-
-If you want, next step we can:
-
-- Implement **goal detection step-by-step**
-- Or refactor **board + renderer** cleanly using Odin principles
-- Or design **teacher classroom flow** (pair work, call-and-response)
-
-Say which one.
+Version tagging (optional but nice)

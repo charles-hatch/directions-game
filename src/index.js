@@ -315,11 +315,3 @@ el.answerRightBtn.addEventListener("click", () => handleAnswer("right"));
 el.answerFrontBtn.addEventListener("click", () => handleAnswer("front"));
 
 el.nextBtn.addEventListener("click", resetLevel);
-
-// update main menu description
-// the main menu will have a clear description of the app, how to use it
-// how to play
-// fix character select
-// test
-// code cleanup
-// design final draft
