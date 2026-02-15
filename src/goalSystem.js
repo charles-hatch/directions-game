@@ -1,5 +1,4 @@
 // goalSystem.js
-// goalSystem.js
 import { GameState } from "./gameState.js";
 
 export function setRandomGoal(board) {

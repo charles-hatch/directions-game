@@ -59,8 +59,8 @@ export function setDisplay(board) {
 
 export function updatePlayer(player) {
   const playerEl = document.getElementById("player");
-
   const firstTile = document.querySelector("#game-board .tile");
+  if (!playerEl || !firstTile) return;
   const tileSize = firstTile.offsetWidth;
 
   const PLAYER_SIZE = tileSize * 0.5; // scale with tile
@@ -97,16 +97,7 @@ export function highlightGoal(board, goal) {
   if (!goal) return;
 
   const cell = board[goal.y][goal.x];
-  // cell.el.classList.add("goal-highlight");
 }
-
-// export function clearGoalHighlight(board) {
-//   for (let y = 0; y < board.length; y++) {
-//     for (let x = 0; x < board[y].length; x++) {
-//       board[y][x].el.classList.remove("goal-highlight");
-//     }
-//   }
-// }
 
 export function getBuildingImgByIndex(idx) {
   return buildingImgs[idx % buildingImgs.length];
