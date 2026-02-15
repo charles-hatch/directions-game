@@ -12,27 +12,12 @@ import { setRandomGoal, checkGoal } from "./goalSystem.js";
 import { initMenu } from "./menu.js";
 import { confettiBurst } from "./confetti.js";
 import { initLegend } from "./legend.js";
+import { getDom } from "./dom.js";
 
 /* =====================
    DOM
 ===================== */
-const el = {
-  gameBoard: document.getElementById("game-board"),
-  menuBtn: document.getElementById("menu-btn"),
-  nextBtn: document.getElementById("next-btn"),
-
-  turnRightBtn: document.getElementById("turn-right-btn"),
-  turnLeftBtn: document.getElementById("turn-left-btn"),
-  goStraightBtn: document.getElementById("go-straight-btn"),
-
-  answerLeftBtn: document.getElementById("answer-left"),
-  answerRightBtn: document.getElementById("answer-right"),
-  answerFrontBtn: document.getElementById("answer-front"),
-
-  // Optional goal UI (only works if these exist in your HTML)
-  goalLabel: document.getElementById("goal-label"), // <div id="goal-label"></div>
-  goalImg: document.getElementById("goal-img"), // <img id="goal-img" />
-};
+const el = getDom();
 
 initLegend();
 
