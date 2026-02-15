@@ -1,17 +1,58 @@
-# directions-game
+Here is a shorter, polished portfolio version.
 
-This project is intended to help teach Japanese Elementary students learn English for directional words. The buttons are written in English, and when the project is complete, there will be a legend explaining various methods to employ this simple game in the browser. Students can use their tablets to quickly pull this up, and no doubt will enjoy the game. I plan on expanding it further to add:
+---
 
-- multiple levels or maps (up to 3)
-- avatar selection
-- a single player mode (where the program tells the student which location to go to)
-- a legend to explain buttons and methods of play
+# My Town – Directions Game
 
-- “Free Mode supports teacher-led and pair-based classroom interaction, while Level Mode provides goal-driven, repeatable challenges for individual practice.”
+A browser-based ESL classroom game designed to help Japanese elementary students practice English directional language (left, right, straight, front).
 
-Board logic assigns abstract tile IDs; renderer maps IDs to visual assets.
+The game runs entirely in the browser and is optimized for laptop and classroom display use.
 
-//for now, this is a random repeated, loop -- but will be expanded on in the future. I should make a note of this in my readme and to do.
-// future expansion includes levels, points, etc.
-// alternative maps, expanded, bigger, building ranomized placement etc.
-// character selection screen expanded
+---
+
+## Overview
+
+Students navigate a small town grid using English instruction buttons.
+
+Two modes are available:
+
+- **Free Mode** – Teacher-led or pair-based speaking practice.
+- **Level Mode** – Goal-driven challenges where students navigate to a target building using correct directional phrases.
+
+The focus is repetition of practical sentence patterns such as:
+
+- “Turn left.”
+- “Go straight.”
+- “You can see it on your right.”
+
+---
+
+## Features
+
+- Responsive scaling for classroom screens
+- Randomized, non-repeating goals
+- Avatar selection
+- Visual goal panel
+- Confetti feedback on correct answers
+- Built-in vocabulary legend
+
+---
+
+## Technical Structure
+
+The project follows a modular architecture separating:
+
+- Game logic
+- Rendering
+- State management
+- UI control
+
+Board logic assigns abstract tile types, while the renderer maps them to visual assets, keeping logic independent from presentation.
+
+---
+
+## Purpose
+
+Designed for real classroom use with minimal setup, clear UI, and repeatable speaking practice.
+
+Future improvements may include additional maps, progression systems, and expanded vocabulary sets.
