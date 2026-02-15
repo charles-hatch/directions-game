@@ -11,6 +11,7 @@ import { GameState } from "./gameState.js";
 import { setRandomGoal, checkGoal } from "./goalSystem.js";
 import { initMenu } from "./menu.js";
 import { confettiBurst } from "./confetti.js";
+import { initLegend } from "./legend.js";
 
 /* =====================
    DOM
@@ -33,24 +34,7 @@ const el = {
   goalImg: document.getElementById("goal-img"), // <img id="goal-img" />
 };
 
-const legendToggle = document.getElementById("legend-toggle");
-const legendPanel = document.getElementById("legend-panel");
-
-function setLegendOpen(open) {
-  if (!legendToggle || !legendPanel) return;
-
-  legendToggle.setAttribute("aria-expanded", String(open));
-  legendPanel.classList.toggle("hidden", !open);
-  legendPanel.setAttribute("aria-hidden", String(!open));
-}
-
-legendToggle?.addEventListener("click", () => {
-  const isOpen = legendToggle.getAttribute("aria-expanded") === "true";
-  setLegendOpen(!isOpen);
-});
-
-// default closed
-setLegendOpen(false);
+initLegend();
 
 /* =====================
    Runtime State

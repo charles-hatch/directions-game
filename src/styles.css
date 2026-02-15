@@ -209,7 +209,7 @@ a {
   top: calc(100% + 8px);
   left: 0;
 
-  width: min(400px, 70vw); /* fixed the conflicting width/max-width */
+  width: min(300px, 60vw); /* fixed the conflicting width/max-width */
   max-height: 340px;
   overflow: auto;
 
