@@ -13,12 +13,12 @@ import { initMenu } from "./menu.js";
 import { confettiBurst } from "./confetti.js";
 import { initLegend } from "./legend.js";
 import { getDom } from "./dom.js";
+import { initController } from "./controller.js";
 
 /* =====================
    DOM
 ===================== */
 const el = getDom();
-
 initLegend();
 
 /* =====================
@@ -155,11 +155,9 @@ function handleAnswer(answer) {
     el.nextBtn.style.display = "block"; // keep your existing flow
   }
 }
-
 function resetLevel() {
   if (!player || !board) return;
 
-  // Reset player position
   player.y = 4;
   player.x = 2;
   player.orientation = "north";
@@ -167,10 +165,8 @@ function resetLevel() {
   updatePlayer(player);
   GameState.goalComplete = false;
 
-  // New goal
   GameState.goal = setRandomGoal(board);
 
-  // Sync UI/state
   renderGoalUI();
   updateGoalVisibility();
 
@@ -181,24 +177,16 @@ function resetLevel() {
 /* =====================
    Menu
 ===================== */
-const menu = initMenu({
-  onStartGame: initLevel,
+const menu = initMenu({ onStartGame: initLevel });
+
+initController(el, {
+  turnRight,
+  turnLeft,
+  goStraight,
+  answer: handleAnswer,
+  next: resetLevel,
+  menu: () => {
+    menu.showMenuScreen();
+    resetGameState();
+  },
 });
-
-el.menuBtn.addEventListener("click", () => {
-  menu.showMenuScreen();
-  resetGameState();
-});
-
-/* =====================
-   Controls Wiring
-===================== */
-el.turnRightBtn.addEventListener("click", turnRight);
-el.turnLeftBtn.addEventListener("click", turnLeft);
-el.goStraightBtn.addEventListener("click", goStraight);
-
-el.answerLeftBtn.addEventListener("click", () => handleAnswer("left"));
-el.answerRightBtn.addEventListener("click", () => handleAnswer("right"));
-el.answerFrontBtn.addEventListener("click", () => handleAnswer("front"));
-
-el.nextBtn.addEventListener("click", resetLevel);
