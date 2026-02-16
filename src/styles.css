@@ -100,7 +100,7 @@ a {
 }
 
 .menu-desc {
-  width: min(760px, 92vw);
+  width: min(800px, 92vw);
   background: rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 12px;
@@ -158,11 +158,6 @@ a {
 #player {
   position: absolute;
   pointer-events: none;
-}
-
-.goal-highlight {
-  outline: 4px solid gold;
-  outline-offset: -4px;
 }
 
 #goal-panel {

@@ -1,103 +1,38 @@
-UI Polish
-
-Improve button sizing and spacing consistency
-
-Check font readability on projector (classroom test)
-
-Confirm responsive layout (small laptop / tablet)
-
-Ensure legend works cleanly on mobile width
-
-Remove any leftover console.log()
-
 2️⃣ Code Cleanup
 
 Remove unused imports / variables
-
 Remove commented-out debug code
-
 Make naming consistent (goal, mode, etc.)
-
 Confirm character select works after rebuild
-
 Confirm no hardcoded paths that break on build
-
 Make sure no duplicate CSS rules remain
-
 Run npm run build and check for warnings
-
-Optional but strong portfolio move:
-
 Add short comments explaining architecture (Board / Renderer / Goal system separation)
 
-3️⃣ Functionality Check (Important)
-
+3Functionality Check (Important)
 Before publishing, test:
-
 Level mode: goal never repeats twice
-
 Free mode: no errors
-
 Legend toggle: works open/close repeatedly
-
 Confetti clears properly
-
 Next button resets correctly
-
 Character select persists into game
-
 Menu → Game → Menu loop works cleanly
 
-4️⃣ Build / Deployment
-
+4Build / Deployment
 npm run build
-
 Confirm /dist loads locally with a static server
-
 Verify asset paths (icons, tiles) work in production
-
 If using GitHub Pages, confirm correct base path
 
-5️⃣ README Cleanup
-
-Include:
-
+5 README C
 Project purpose (classroom English directions practice)
 
-Tech stack (Webpack, vanilla JS, modular structure)
-
-Feature list
-
-Screenshots
-
-How to run locally
-
-How it could expand (future roadmap)
-
-Optional:
-
-Short reflection section (what you learned)
-
-6️⃣ Small Professional Touches (Often Forgotten)
-
-Add favicon
-
-Add proper <title> tag (already good)
-
-Add alt text to images
-
-Check for spelling consistency (Supermarket vs Shop etc.)
-
-Confirm all Japanese text is correct (no awkward phrasing)
-
-What You’re Missing Most Likely
-
-You didn’t list:
-
-Production path testing (very common break point)
-
-Removing dev console logs
-
-Screenshot for README
-
-Version tagging (optional but nice)
+- to teach module design to myself
+  Tech stack (Webpack, vanilla JS, modular structure)
+  Feature list
+  How it could expand (future roadmap)
+  Short reflection section (what you learned)
+  Confirm all Japanese text is correct (no awkward phrasing)
+  Screenshot for README
+- mention references for images and files

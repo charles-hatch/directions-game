@@ -19,10 +19,8 @@ const buildingImgs = [
   tileBuilding6,
   tileBuilding7,
 ];
-let buildingCounter = 0;
 
 export function setDisplay(board) {
-  // buildingCounter = 0;
   for (let y = 0; y < board.length; y++) {
     for (let x = 0; x < board[y].length; x++) {
       const cell = board[y][x];
@@ -89,14 +87,6 @@ export function updatePlayer(player) {
   }
 
   playerEl.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
-}
-
-export function highlightGoal(board, goal) {
-  clearGoalHighlight(board);
-
-  if (!goal) return;
-
-  const cell = board[goal.y][goal.x];
 }
 
 export function getBuildingImgByIndex(idx) {

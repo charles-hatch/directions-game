@@ -20,7 +20,7 @@ export function makeBoard() {
       gameBoard.appendChild(box);
       row.push({
         map: null,
-        building: null, // <- add this
+        building: null,
         el: box,
       });
     }
@@ -46,7 +46,6 @@ export function setBoard(board) {
     cell.building = { id: b.id, name: b.name, imgIndex: b.imgIndex };
   });
 
-  // paths stay the same
   const paths = [
     [4, 2],
     [3, 2],
