@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Town</title>
+  <script defer src="main.js"></script></head>
+
+  <body>
+    <div class="background-img"></div>
+
+    <div id="menu-screen">
+      <div id="title-text">
+        <h1 class="info-text">My Town ~ 私の街</h1>
+        <p class="info-text">方向を表す英語ゲーム</p>
+        <div class="menu-desc">
+          <p class="info-text">
+            このゲームは、方向（left / right /
+            straight）を楽しく練習するための英語学習ゲームです。
+          </p>
+
+          <p class="info-text">
+            【レベルモード】コンピューターが目的地を出します。正しい方向を選びましょう。
+          </p>
+
+          <p class="info-text">
+            【フリーモード】先生やペアで目的地を決めて、英語で道案内をしましょう。
+          </p>
+
+          <p class="info-text">
+            ※使い方や単語の説明は「ⓘ 単語リスト」から確認できます。
+          </p>
+        </div>
+      </div>
+
+      <div id="menu-main" class="menu-panel">
+        <button id="start-btn">スタート</button>
+        <button id="character-btn">キャラクター選択</button>
+        <button id="about-btn">このゲームについて</button>
+      </div>
+
+      <div id="menu-start" class="menu-panel" style="display: none">
+        <button data-mode="level">レベルモード</button>
+        <button data-mode="free">フリーモード</button>
+        <button class="back-btn">戻る</button>
+      </div>
+
+      <div id="menu-character" class="menu-panel" style="display: none">
+        <img
+          class="char-select"
+          data-character="guy.png"
+          src="88f518163590b1c065f5.png"
+        />
+        <img
+          class="char-select"
+          data-character="girl.png"
+          src="6ae38c05359552341910.png"
+        />
+
+        <button class="back-btn">戻る</button>
+      </div>
+
+      <div id="menu-about" class="menu-panel" style="display: none">
+        <div class="menu-desc">
+          <p class="info-text">
+            制作の背景やコードの詳細は、GitHubをご覧ください。
+          </p>
+
+          <p class="info-text">
+            <a
+              href="https://github.com/charles-hatch/directions-game"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHubページを見る
+            </a>
+          </p>
+        </div>
+
+        <button class="back-btn">戻る</button>
+      </div>
+    </div>
+
+    <div id="game-screen">
+      <button id="menu-btn" class="menu-float">メニューへ戻る</button>
+
+      <div id="play-area">
+        <div id="game-container">
+          <div id="game-board"></div>
+          <img id="player" src="88f518163590b1c065f5.png" />
+
+          <!-- FLOATING goal panel (does not affect centering) -->
+          <div id="goal-panel">
+            <div id="goal-label"></div>
+            <img id="goal-img" />
+            <button id="next-btn" class="next-btn" style="display: none">
+              次へ
+            </button>
+            <button
+              id="legend-toggle"
+              class="legend-toggle"
+              aria-expanded="false"
+            >
+              ⓘ　単語リスト
+            </button>
+
+            <div
+              id="legend-panel"
+              class="legend-panel hidden"
+              aria-hidden="true"
+            >
+              <div class="legend-section">
+                <div class="legend-title">建物</div>
+                <ul class="legend-list">
+                  <li class="stack">
+                    <span class="en">Where is the ____?</span
+                    ><span class="jp">〇〇はどこですか？</span>
+                  </li>
+                  <li>
+                    <span class="en">Pet Store</span
+                    ><span class="jp">ペット屋</span>
+                  </li>
+                  <li>
+                    <span class="en">Bank</span><span class="jp">銀行</span>
+                  </li>
+                  <li>
+                    <span class="en">Temple</span><span class="jp">寺</span>
+                  </li>
+                  <li>
+                    <span class="en">House</span><span class="jp">家</span>
+                  </li>
+                  <li>
+                    <span class="en">Hospital</span><span class="jp">病院</span>
+                  </li>
+                  <li>
+                    <span class="en">Supermarket</span
+                    ><span class="jp">スーパー</span>
+                  </li>
+                  <li>
+                    <span class="en">School</span><span class="jp">学校</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="legend-section">
+                <div class="legend-title">方向</div>
+                <ul class="legend-list">
+                  <li>
+                    <span class="en">Turn left</span
+                    ><span class="jp">左に曲がる</span>
+                  </li>
+                  <li>
+                    <span class="en">Go straight</span
+                    ><span class="jp">まっすぐ進む</span>
+                  </li>
+                  <li>
+                    <span class="en">Turn right</span
+                    ><span class="jp">右に曲がる</span>
+                  </li>
+                  <li class="stack">
+                    <span class="en">You can see it on your ____.</span>
+                    <span class="jp">あなたの〇〇にあるよ</span>
+                  </li>
+
+                  <li>
+                    <span class="en">left / front / right</span
+                    ><span class="jp">左 / 前 / 右</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="controls">
+        <div id="btns">
+          <button id="turn-left-btn">Turn left.</button>
+          <button id="go-straight-btn">Go Straight.</button>
+          <button id="turn-right-btn">Turn right.</button>
+        </div>
+
+        <div id="answer-btns">
+          <button id="answer-left">You can see it on your left.</button>
+          <button id="answer-front">You can see it in front of you.</button>
+          <button id="answer-right">You can see it on your right.</button>
+        </div>
+      </div>
+      <canvas id="confetti"></canvas>
+    </div>
+  </body>
+</html>
