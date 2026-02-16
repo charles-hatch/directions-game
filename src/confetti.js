@@ -1,21 +1,29 @@
-//confetti.js
+// confetti.js
+// One-shot celebration effect (canvas overlay)
+
 const confettiCanvas = document.getElementById("confetti");
 const confettiCtx = confettiCanvas?.getContext("2d");
+
 let confettiRAF = null;
 let confettiParticles = [];
 
 function resizeConfetti() {
-  if (!confettiCanvas) return;
+  if (!confettiCanvas || !confettiCtx) return;
+
   const dpr = window.devicePixelRatio || 1;
   confettiCanvas.width = Math.floor(window.innerWidth * dpr);
   confettiCanvas.height = Math.floor(window.innerHeight * dpr);
+
+  // draw in CSS pixels
   confettiCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
+
 window.addEventListener("resize", resizeConfetti);
 resizeConfetti();
 
 export function confettiBurst() {
   if (!confettiCanvas || !confettiCtx) return;
+
   resizeConfetti();
 
   const colors = ["#ffd166", "#06d6a0", "#118ab2", "#ef476f", "#ffffff"];
@@ -23,8 +31,9 @@ export function confettiBurst() {
   const originY = window.innerHeight * 0.25;
 
   confettiParticles = Array.from({ length: 120 }, () => {
-    const angle = Math.random() * Math.PI - Math.PI / 2; // spray outward
+    const angle = Math.random() * Math.PI - Math.PI / 2;
     const speed = 3 + Math.random() * 5;
+
     return {
       x: originX + (Math.random() * 60 - 30),
       y: originY + (Math.random() * 30 - 15),

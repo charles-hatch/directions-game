@@ -1,4 +1,6 @@
 // menu.js
+// Menu navigation + mode/character selection
+
 import { GameState } from "./gameState.js";
 import guy from "./icons/guy.png";
 import girl from "./icons/girl.png";
@@ -12,6 +14,12 @@ export function initMenu({ onStartGame }) {
   const menuScreen = document.getElementById("menu-screen");
   const gameScreen = document.getElementById("game-screen");
   const panels = document.querySelectorAll(".menu-panel");
+
+  function renderMenu() {
+    panels.forEach((p) => (p.style.display = "none"));
+    const active = document.getElementById(`menu-${GameState.menuView}`);
+    if (active) active.style.display = "flex";
+  }
 
   function showMenuScreen() {
     gameScreen.style.display = "none";
@@ -27,15 +35,7 @@ export function initMenu({ onStartGame }) {
     GameState.screen = "game";
   }
 
-  function renderMenu() {
-    panels.forEach((p) => (p.style.display = "none"));
-
-    const active = document.getElementById(`menu-${GameState.menuView}`);
-    if (active) active.style.display = "flex";
-  }
-
-  /* ---------- Main Buttons ---------- */
-
+  // Main buttons
   document.getElementById("start-btn").onclick = () => {
     GameState.menuView = "start";
     renderMenu();
@@ -58,31 +58,28 @@ export function initMenu({ onStartGame }) {
     };
   });
 
-  /* ---------- Start Game ---------- */
-
+  // Mode select
   document.querySelectorAll("#menu-start [data-mode]").forEach((button) => {
     button.onclick = () => {
       GameState.mode = button.dataset.mode;
       showGameScreen();
-      onStartGame(); // delegate to index.js
+      onStartGame();
     };
   });
 
-  /* ---------- Character Select ---------- */
-
+  // Character select
   document
     .querySelectorAll("#menu-character [data-character]")
-    .forEach((el) => {
-      el.onclick = () => {
-        const key = el.dataset.character;
-        document.getElementById("player").src = characterMap[key];
+    .forEach((img) => {
+      img.onclick = () => {
+        const key = img.dataset.character;
+        const src = characterMap[key];
+        if (src) document.getElementById("player").src = src;
+
         GameState.menuView = "main";
         renderMenu();
       };
     });
 
-  return {
-    showMenuScreen,
-    showGameScreen,
-  };
+  return { showMenuScreen, showGameScreen };
 }

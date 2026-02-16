@@ -1,38 +1,19 @@
-2️⃣ Code Cleanup
+1. ensure the program works completely, all functions, play a few rounds
+2. do a final check on each module, ensure nothing duplicated or redundant code
+3. make sure comments are good, and necessary. Make sure i understand some of the modules.
+4. run final build
+5. check github page
+6. write readme with these points
 
-Remove unused imports / variables
-Remove commented-out debug code
-Make naming consistent (goal, mode, etc.)
-Confirm character select works after rebuild
-Confirm no hardcoded paths that break on build
-Make sure no duplicate CSS rules remain
-Run npm run build and check for warnings
-Add short comments explaining architecture (Board / Renderer / Goal system separation)
+-Project purpose (classroom English directions practice
+-to teach module design to myself
+-Tech stack (Webpack, vanilla JS, modular structure)
+-Feature list
+-How it could expand (future roadmap)
 
-3Functionality Check (Important)
-Before publishing, test:
-Level mode: goal never repeats twice
-Free mode: no errors
-Legend toggle: works open/close repeatedly
-Confetti clears properly
-Next button resets correctly
-Character select persists into game
-Menu → Game → Menu loop works cleanly
-
-4Build / Deployment
-npm run build
-Confirm /dist loads locally with a static server
-Verify asset paths (icons, tiles) work in production
-If using GitHub Pages, confirm correct base path
-
-5 README C
-Project purpose (classroom English directions practice)
-
-- to teach module design to myself
-  Tech stack (Webpack, vanilla JS, modular structure)
-  Feature list
-  How it could expand (future roadmap)
-  Short reflection section (what you learned)
-  Confirm all Japanese text is correct (no awkward phrasing)
-  Screenshot for README
+- Short reflection section (what you learned)
+- Confirm all Japanese text is correct (no awkward phrasing)
+- Screenshot for README
 - mention references for images and files
+
+7. delete this todo and anything else.

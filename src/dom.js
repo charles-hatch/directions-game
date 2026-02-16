@@ -1,4 +1,6 @@
 // dom.js
+// Central DOM lookup (single source of truth)
+
 export function getDom() {
   return {
     gameBoard: document.getElementById("game-board"),
@@ -10,8 +12,8 @@ export function getDom() {
     goStraightBtn: document.getElementById("go-straight-btn"),
 
     answerLeftBtn: document.getElementById("answer-left"),
-    answerRightBtn: document.getElementById("answer-right"),
     answerFrontBtn: document.getElementById("answer-front"),
+    answerRightBtn: document.getElementById("answer-right"),
 
     goalLabel: document.getElementById("goal-label"),
     goalImg: document.getElementById("goal-img"),

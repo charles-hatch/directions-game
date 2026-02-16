@@ -1,4 +1,6 @@
 // goalSystem.js
+// Goal selection + direction checking (level mode)
+
 import { GameState } from "./gameState.js";
 
 export function setRandomGoal(board) {
@@ -30,39 +32,43 @@ export function checkGoal(player, goal) {
   const dx = goal.x - player.x;
   const dy = goal.y - player.y;
 
+  // must be orthogonally adjacent (Manhattan distance 1)
   if (Math.abs(dx) + Math.abs(dy) !== 1) return null;
 
   return getRelativeDirection(player.orientation, dx, dy);
 }
 
 function getRelativeDirection(orientation, dx, dy) {
-  if (orientation === "north") {
-    if (dy === -1) return "front";
-    if (dy === 1) return "behind";
-    if (dx === -1) return "left";
-    if (dx === 1) return "right";
-  }
+  switch (orientation) {
+    case "north":
+      if (dy === -1) return "front";
+      if (dy === 1) return "behind";
+      if (dx === -1) return "left";
+      if (dx === 1) return "right";
+      return null;
 
-  if (orientation === "south") {
-    if (dy === 1) return "front";
-    if (dy === -1) return "behind";
-    if (dx === 1) return "left";
-    if (dx === -1) return "right";
-  }
+    case "south":
+      if (dy === 1) return "front";
+      if (dy === -1) return "behind";
+      if (dx === 1) return "left";
+      if (dx === -1) return "right";
+      return null;
 
-  if (orientation === "east") {
-    if (dx === 1) return "front";
-    if (dx === -1) return "behind";
-    if (dy === -1) return "left";
-    if (dy === 1) return "right";
-  }
+    case "east":
+      if (dx === 1) return "front";
+      if (dx === -1) return "behind";
+      if (dy === -1) return "left";
+      if (dy === 1) return "right";
+      return null;
 
-  if (orientation === "west") {
-    if (dx === -1) return "front";
-    if (dx === 1) return "behind";
-    if (dy === 1) return "left";
-    if (dy === -1) return "right";
-  }
+    case "west":
+      if (dx === -1) return "front";
+      if (dx === 1) return "behind";
+      if (dy === 1) return "left";
+      if (dy === -1) return "right";
+      return null;
 
-  return null;
+    default:
+      return null;
+  }
 }

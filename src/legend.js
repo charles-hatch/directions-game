@@ -1,4 +1,6 @@
 // legend.js
+// Legend panel toggle (accessibility attrs)
+
 export function initLegend({
   toggleId = "legend-toggle",
   panelId = "legend-panel",
@@ -19,8 +21,6 @@ export function initLegend({
     setLegendOpen(!isOpen);
   });
 
-  // default closed
   setLegendOpen(false);
-
   return { setLegendOpen };
 }
