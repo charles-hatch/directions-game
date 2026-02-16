@@ -3,7 +3,7 @@
 import "./styles.css";
 import { GameState } from "./gameState.js";
 import { createPlayer } from "./player.js";
-import { makeBoard, setBoard, isWalkable } from "./board.js";
+import { makeBoard, setBoard, isWalkable, BOARD_SIZE } from "./board.js";
 import { setRandomGoal, checkGoal } from "./goalSystem.js";
 import { setDisplay, updatePlayer, getBuildingImgByIndex } from "./renderer.js";
 import { getDom } from "./dom.js";
@@ -66,6 +66,10 @@ function initLevel() {
   GameState.goalComplete = false;
 
   board = makeBoard();
+  document
+    .getElementById("game-board")
+    .style.setProperty("--board-size", BOARD_SIZE);
+  setBoard(board);
   player = createPlayer(START_POS.y, START_POS.x);
 
   setBoard(board);
@@ -79,6 +83,16 @@ function initLevel() {
 
   el.nextBtn.style.display = "none";
 }
+
+function syncPlayerPosition() {
+  if (!player) return;
+  updatePlayer(player);
+}
+
+// Reposition after resize
+window.addEventListener("resize", syncPlayerPosition);
+window.addEventListener("orientationchange", syncPlayerPosition);
+requestAnimationFrame(syncPlayerPosition);
 
 function resetGameState() {
   GameState.goal = null;

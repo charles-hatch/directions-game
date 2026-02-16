@@ -1,21 +1,19 @@
 //board.js
 const gameBoard = document.querySelector("#game-board");
 
+export const BOARD_SIZE = 5;
+
 export function makeBoard() {
-  const size = 5;
-  const boxSize = 100;
   const board = [];
 
-  gameBoard.style.width = size * boxSize + "px";
+  // reset (helps if you ever re-init)
+  gameBoard.innerHTML = "";
 
-  for (let y = 0; y < size; y++) {
+  for (let y = 0; y < BOARD_SIZE; y++) {
     const row = [];
-    for (let x = 0; x < size; x++) {
+    for (let x = 0; x < BOARD_SIZE; x++) {
       const box = document.createElement("div");
-      box.style.width = boxSize + "px";
-      box.style.height = boxSize + "px";
-      box.style.backgroundColor = "white";
-      box.style.boxSizing = "border-box";
+      box.className = "tile"; // let CSS size it
 
       gameBoard.appendChild(box);
       row.push({

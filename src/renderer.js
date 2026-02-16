@@ -54,23 +54,31 @@ export function setDisplay(board) {
     }
   }
 }
-
 export function updatePlayer(player) {
   const playerEl = document.getElementById("player");
-  const firstTile = document.querySelector("#game-board .tile");
-  if (!playerEl || !firstTile) return;
-  const tileSize = firstTile.offsetWidth;
+  const boardEl = document.getElementById("game-board");
+  const firstTile = boardEl?.querySelector(".tile");
+  if (!playerEl || !boardEl || !firstTile) return;
 
-  const PLAYER_SIZE = tileSize * 0.5; // scale with tile
-  playerEl.style.width = PLAYER_SIZE + "px";
-  playerEl.style.height = PLAYER_SIZE + "px";
+  const tileSize = firstTile.getBoundingClientRect().width;
 
-  // Center using transform anchor
-  playerEl.style.left = `${player.x * tileSize + tileSize / 2}px`;
-  playerEl.style.top = `${player.y * tileSize + tileSize / 2}px`;
+  // board position relative to the element player is positioned against
+  const parent = playerEl.offsetParent || document.body;
+
+  const boardRect = boardEl.getBoundingClientRect();
+  const parentRect = parent.getBoundingClientRect();
+
+  const boardLeft = boardRect.left - parentRect.left;
+  const boardTop = boardRect.top - parentRect.top;
+
+  const playerSize = Math.round(tileSize * 0.5);
+  playerEl.style.width = `${playerSize}px`;
+  playerEl.style.height = `${playerSize}px`;
+
+  const cx = boardLeft + player.x * tileSize + tileSize / 2;
+  const cy = boardTop + player.y * tileSize + tileSize / 2;
 
   let rotation = 0;
-
   switch (player.orientation) {
     case "east":
       rotation = 90;
@@ -81,11 +89,12 @@ export function updatePlayer(player) {
     case "west":
       rotation = 270;
       break;
-    case "north":
+    default:
       rotation = 0;
-      break;
   }
 
+  playerEl.style.left = `${cx}px`;
+  playerEl.style.top = `${cy}px`;
   playerEl.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
 }
 

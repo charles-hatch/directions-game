@@ -144,15 +144,26 @@ a {
 }
 
 #game-board {
+  --board-size: 5;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(var(--board-size), 1fr);
+  grid-template-rows: repeat(var(--board-size), 1fr);
   width: min(92vw, 680px);
   aspect-ratio: 1 / 1;
 }
 
 .tile {
+  background-size: cover; /* or contain */
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.tile img {
   width: 100%;
   height: 100%;
+  object-fit: cover; /* or "contain" depending on your art */
+  display: block;
+  image-rendering: pixelated; /* optional for pixel art */
 }
 
 #player {
