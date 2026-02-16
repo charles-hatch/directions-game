@@ -5,15 +5,13 @@ export const BOARD_SIZE = 5;
 
 export function makeBoard() {
   const board = [];
-
-  // reset (helps if you ever re-init)
   gameBoard.innerHTML = "";
 
   for (let y = 0; y < BOARD_SIZE; y++) {
     const row = [];
     for (let x = 0; x < BOARD_SIZE; x++) {
       const box = document.createElement("div");
-      box.className = "tile"; // let CSS size it
+      box.className = "tile";
 
       gameBoard.appendChild(box);
       row.push({

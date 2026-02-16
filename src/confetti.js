@@ -1,4 +1,4 @@
-// ===== Confetti (vanilla canvas) =====
+//confetti.js
 const confettiCanvas = document.getElementById("confetti");
 const confettiCtx = confettiCanvas?.getContext("2d");
 let confettiRAF = null;

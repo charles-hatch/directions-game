@@ -14,9 +14,8 @@ export function setRandomGoal(board) {
   }
 
   if (buildings.length === 0) return null;
-  if (buildings.length === 1) return buildings[0]; // can’t avoid repeats
+  if (buildings.length === 1) return buildings[0];
 
-  // Re-roll until it differs from lastGoalId (bounded loop)
   let pick = null;
   for (let tries = 0; tries < 10; tries++) {
     pick = buildings[Math.floor(Math.random() * buildings.length)];
@@ -31,7 +30,6 @@ export function checkGoal(player, goal) {
   const dx = goal.x - player.x;
   const dy = goal.y - player.y;
 
-  // must be adjacent (Manhattan distance 1)
   if (Math.abs(dx) + Math.abs(dy) !== 1) return null;
 
   return getRelativeDirection(player.orientation, dx, dy);
