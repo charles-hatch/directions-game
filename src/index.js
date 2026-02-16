@@ -1,5 +1,5 @@
 // index.js
-// App entry: wires modules + manages game lifecycle
+// Primary Module - wires all modules togeter and manages game lifecycle
 
 import "./styles.css";
 

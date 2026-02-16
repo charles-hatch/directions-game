@@ -1,5 +1,5 @@
 // dom.js
-// Central DOM lookup (single source of truth)
+// DOM lookup
 
 export function getDom() {
   return {

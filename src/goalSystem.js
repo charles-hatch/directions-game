@@ -1,5 +1,5 @@
 // goalSystem.js
-// Goal selection + direction checking (level mode)
+// manages our random goal selection + and orientation of the goal in relation to player
 
 import { GameState } from "./gameState.js";
 

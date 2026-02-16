@@ -1,5 +1,5 @@
 // board.js
-// Board creation + static map layout (data only)
+// Manages board creation + static map layout
 
 export const BOARD_SIZE = 5;
 

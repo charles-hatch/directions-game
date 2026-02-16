@@ -1,5 +1,5 @@
 // gameState.js
-// Lightweight shared state
+// shared state that stores current gameplay status
 
 export const GameState = {
   screen: "menu", // menu | game

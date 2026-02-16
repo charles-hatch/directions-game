@@ -1,5 +1,5 @@
 // confetti.js
-// One-shot celebration effect (canvas overlay)
+// celebration effect (canvas overlay)
 
 const confettiCanvas = document.getElementById("confetti");
 const confettiCtx = confettiCanvas?.getContext("2d");

@@ -1,5 +1,5 @@
 // legend.js
-// Legend panel toggle (accessibility attrs)
+// Legend panel toggle functionality
 
 export function initLegend({
   toggleId = "legend-toggle",
