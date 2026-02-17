@@ -1,9 +1,8 @@
-1. ensure the program works completely, all functions, play a few rounds
-2. do a final check on each module, ensure nothing duplicated or redundant code
-3. make sure comments are good, and necessary. Make sure i understand some of the modules.
-4. run final build
-5. check github page
-6. write readme with these points
+1. take a look through all my code --- what parts dont i understand? Just for sanity sake, ask for explainations and try to understand.
+2. quick test of gameplay
+3. run final build
+4. check github page
+5. write readme with these points
 
 -Project purpose (classroom English directions practice
 -to teach module design to myself
