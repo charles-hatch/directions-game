@@ -119,14 +119,3 @@ Player and building images were sourced from [https://www.kindpng.com/](https://
 Tile artwork was created in Photoshop.
 
 Future development may include replacing all third-party artwork with original assets.
-
----
-
-### Notes
-
-- “Confetti Particle effect” → lowercase “particle” is more standard.
-- “Optimized for laptop and classroom display use” → tightened slightly.
-- Separated asset credits into their own section for clarity.
-- Removed conversational phrasing and made tone slightly more professional.
-
-If you'd like, I can also produce a slightly more “developer-focused” version aimed specifically at a Japanese tech hiring manager.
