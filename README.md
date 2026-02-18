@@ -26,6 +26,13 @@ My Town は、日本の小学生が英語の方向表現（left, right, straight
 - 正解時のコンフェッティ（パーティクル）エフェクト
 - 英語フレーズを説明する折りたたみ式のLegendボタン
 
+## 使用技術（Tech Stack）
+
+-HTML5
+-CSS3
+-JavaScript（ES6 Modules）
+-Webpack（バンドル）
+
 ## 技術構成
 
 このプロジェクトは、The Odin Projectで学んだモジュラー構造をもとに作成しています。
