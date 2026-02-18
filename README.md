@@ -17,8 +17,8 @@ My Town は、日本の小学生が英語の方向表現（left, right, straight
 - “Turn left.”
 - “Go straight.”
 - “You can see it on your right.”
-
-![Game Screenshot](assets/screenshot.png)
+  🔗 Live Demo: https://charles-hatch.github.io/directions-game/
+  ![Game Screenshot](assets/screenshot.png)
 
 ## 主な機能
 
