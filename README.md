@@ -18,6 +18,8 @@ My Town は、日本の小学生が英語の方向表現（left, right, straight
 - “Go straight.”
 - “You can see it on your right.”
 
+![Game Screenshot](assets/screenshot.png)
+
 ## 主な機能
 
 - さまざまな画面サイズに対応したレスポンシブレイアウト
